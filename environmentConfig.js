@@ -6,8 +6,8 @@
 
 //login info
 
-export const username = 'sampletester';
-export const password = 'samplepassword';
+export const validUser = 'sampletester';
+export const validPass = 'samplepassword';
 
 
 // url
