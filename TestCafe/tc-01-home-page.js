@@ -21,5 +21,18 @@ fixture `TestCafe - Sample Automation`
 
 test('User can navigate to automationpractice.com home page', async t => {
     await t
-        .expect(true).ok();
+        .expect(getLocation()).contains('http://automationpractice.com/index.php');
+
+    await t
+        .expect(Selector(c.logo).visible).ok()
+        .expect(Selector(c.logo + '[alt=\'My Store\']').exists).ok();
+
+    await t
+        .expect(Selector(c.searchInput).visible).ok()
+        .expect(Selector(c.searchInput + '[placeholder=\'Search\']').exists).ok()
+        .expect(Selector(c.searchButton).visible).ok();
+
+    await t
+        .expect(Selector(c.cartButton).visible).ok()
+        .expect(Selector(c.cartButton).innerText).contains('Cart');
 });
