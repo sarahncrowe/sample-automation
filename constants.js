@@ -55,6 +55,8 @@ export const menuWomenSubDressesSubSummer = '#block_top_menu > ul > li:nth-child
 export const menuWomenThumbnail1 = '#category-thumbnail > div:nth-child(1) > img';
 export const menuWomenThumbnail2 = '#category-thumbnail > div:nth-child(2) > img';
 
+export const menuDressesSubcategoryLinks = '#block_top_menu > ul > li:nth-child(2) > ul > li';
+
 export const menuDressesSubCasual = '#block_top_menu > ul > li:nth-child(2) > ul > li:nth-child(1) > a';
 export const menuDressesSubEvening = '#block_top_menu > ul > li:nth-child(2) > ul > li:nth-child(2) > a';
 export const menuDressesSubSummer = '#block_top_menu > ul > li:nth-child(2) > ul > li:nth-child(3) > a';
