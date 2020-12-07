@@ -68,6 +68,12 @@ export const bestSellerItemsTab = '#home-page-tabs > li:nth-child(2)';
 export const popularItems = '#homefeatured > li.ajax_block_product';
 export const bestSellerItems = '#blockbestsellers > li.ajax_block_product';
 
+export const newsletterLabel = '#newsletter_block_left > h4';
+export const newsletterInput = '#newsletter-input';
+export const newsletterSuccess = '#columns > p.alert-success';
+export const newsletterError = '#columns > p.alert-danger';
+
+
 
 // category page
 

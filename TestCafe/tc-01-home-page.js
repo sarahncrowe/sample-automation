@@ -134,4 +134,59 @@ test('User can view Best Seller items', async t => {
     }
 });
 
-//test('User can view footer information', async t => {});
+test('User can sign up for newsletter', async t => {
+    let uniqueness = new Date();
+    let uniqueEmail = 'email' + (await uniqueness.getTime()).toString() + '@email.com';
+
+    await t
+        .expect(Selector(c.newsletterLabel).visible).ok()
+        .expect(Selector(c.newsletterLabel).innerText).contains('Newsletter');
+
+    await t
+        .expect(Selector(c.newsletterInput).visible).ok()
+        .expect(Selector(c.newsletterInput + '[value=\'Enter your e-mail\']').exists).ok();
+
+    await t
+        .typeText(c.newsletterInput, 'emailusername')
+        .pressKey('enter');
+
+    await t
+        .expect(Selector(c.newsletterError).visible).ok()
+        .expect(Selector(c.newsletterError).innerText).contains('Newsletter : Invalid email address.');
+
+    await t
+        .click(c.logo)
+        .expect(Selector(c.newsletterError).exists).notOk();
+
+    await t
+        .typeText(c.newsletterInput, '@email.com')
+        .pressKey('enter');
+
+    await t
+        .expect(Selector(c.newsletterError).visible).ok()
+        .expect(Selector(c.newsletterError).innerText).contains('Newsletter : Invalid email address.');
+
+    await t
+        .click(c.logo)
+        .expect(Selector(c.newsletterError).exists).notOk();
+
+    await t
+        .typeText(c.newsletterInput, 'test@email')
+        .pressKey('enter');
+
+    await t
+        .expect(Selector(c.newsletterError).visible).ok()
+        .expect(Selector(c.newsletterError).innerText).contains('Newsletter : Invalid email address.');
+
+    await t
+        .click(c.logo)
+        .expect(Selector(c.newsletterError).exists).notOk();
+
+    await t
+        .typeText(c.newsletterInput, uniqueEmail)
+        .pressKey('enter');
+
+    await t
+        .expect(Selector(c.newsletterSuccess).visible).ok()
+        .expect(Selector(c.newsletterSuccess).innerText).contains('Newsletter : You have successfully subscribed to this newsletter.');
+});
