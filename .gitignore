@@ -3,3 +3,5 @@ package.json
 package-lock.json
 tests/cypress/fixtures/example.json
 tests/cypress/integration/examples/
+tests/cypress.json
+tests/debug.log
