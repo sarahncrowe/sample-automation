@@ -35,7 +35,8 @@ module.exports = {
             "error",
             "always"
         ],
-        "no-console": "warn"
+        "no-console": "warn",
+        "block-scoped-var": "warn"
     },
     "globals": {
         "module": false
