@@ -1,6 +1,7 @@
 /* Why use constants?
 
-In my experience, human readable constants are easier for maintenance and debugging - particularly when the selector doesn't have a recognizable id or class. For example, say the following assertion (TestCafe) returned false:
+In my experience, human readable constants are easier for maintenance and debugging - particularly when the selector doesn't have
+a recognizable id or class. For example, say the following assertion (TestCafe) returned false:
 
 await t
     .expect(Selector(div.content > div:nth-child(3) > div > div > div:nth-child(3) > div > a).visible).ok();
@@ -12,7 +13,9 @@ await t
     .expect(Selector(submitButton).visible).ok();
 
 
-With the constant, I know immediately that I'm looking for a submit button and I can quickly determine if the button is actually missing or if the selector just needs to be updated. That brings me to the next perk - when you update the constant, it's immediately updated in all files that use it.
+With the constant, I know immediately that I'm looking for a submit button and I can quickly determine if the button is actually
+missing or if the selector just needs to be updated. That brings me to the next perk - when you update the constant, it's immediately
+updated in all files that use it.
 
 */
 
@@ -64,6 +67,12 @@ export const popularItemsTab = '#home-page-tabs > li:nth-child(1)';
 export const bestSellerItemsTab = '#home-page-tabs > li:nth-child(2)';
 export const popularItems = '#homefeatured > li.ajax_block_product';
 export const bestSellerItems = '#blockbestsellers > li.ajax_block_product';
+
+export const newsletterLabel = '#newsletter_block_left > h4';
+export const newsletterInput = '#newsletter-input';
+export const newsletterSuccess = '#columns > p.alert-success';
+export const newsletterError = '#columns > p.alert-danger';
+
 
 
 // category page
