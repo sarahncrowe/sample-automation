@@ -1,44 +1,44 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es6": true
+    'env': {
+        'browser': true,
+        'es6': true
     },
-    "plugins": [
-        "testcafe"
+    'plugins': [
+        'testcafe'
     ],
-    "extends": [
-        "eslint:recommended",
-        "plugin:testcafe/recommended"
+    'extends': [
+        'eslint:recommended',
+        'plugin:testcafe/recommended'
     ],
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "sourceType": "module"
+    'parser': 'babel-eslint',
+    'parserOptions': {
+        'sourceType': 'module'
     },
-    "rules": {
-        "strict": 0,
-        "indent": [
-            "error",
+    'rules': {
+        'strict': 0,
+        'indent': [
+            'error',
             4
         ],
-        "linebreak-style": [
-            "error",
-            "windows"
+        'linebreak-style': [
+            'error',
+            'windows'
         ],
-        "quotes": [
-            "error",
-            "single",
+        'quotes': [
+            'error',
+            'single',
             {
-                "avoidEscape": false
+                'avoidEscape': false
             }
         ],
-        "semi": [
-            "error",
-            "always"
+        'semi': [
+            'error',
+            'always'
         ],
-        "no-console": "warn",
-        "block-scoped-var": "warn"
+        'no-console': 'warn',
+        'block-scoped-var': 'warn'
     },
-    "globals": {
-        "module": false
+    'globals': {
+        'module': false
     }
 };

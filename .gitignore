@@ -5,3 +5,5 @@ tests/cypress/fixtures/example.json
 tests/cypress/integration/examples/
 tests/cypress.json
 tests/debug.log
+tests/cypress/screenshots/
+tests/cypress/videos/

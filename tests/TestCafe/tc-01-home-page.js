@@ -177,6 +177,9 @@ test('User can view Best Seller items', async t => {
 });
 
 test('User can sign up for Newsletter', async t => {
+    let invalid1 = 'emailusername';
+    let invalid2 = '@email.com';
+    let invalid3 = 'test@email';
     let uniqueness = new Date();
     let uniqueEmail = 'email' + (await uniqueness.getTime()).toString() + '@email.com';
 
@@ -189,7 +192,7 @@ test('User can sign up for Newsletter', async t => {
         .expect(Selector(c.newsletterInput + '[value=\'Enter your e-mail\']').exists).ok();
 
     await t
-        .typeText(c.newsletterInput, 'emailusername')
+        .typeText(c.newsletterInput, invalid1)
         .pressKey('enter');
 
     await t
@@ -201,7 +204,7 @@ test('User can sign up for Newsletter', async t => {
         .expect(Selector(c.newsletterError).exists).notOk();
 
     await t
-        .typeText(c.newsletterInput, '@email.com')
+        .typeText(c.newsletterInput, invalid2)
         .pressKey('enter');
 
     await t
@@ -213,7 +216,7 @@ test('User can sign up for Newsletter', async t => {
         .expect(Selector(c.newsletterError).exists).notOk();
 
     await t
-        .typeText(c.newsletterInput, 'test@email')
+        .typeText(c.newsletterInput, invalid3)
         .pressKey('enter');
 
     await t
