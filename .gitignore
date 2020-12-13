@@ -7,3 +7,4 @@ tests/cypress.json
 tests/debug.log
 tests/cypress/screenshots/
 tests/cypress/videos/
+tests/Protractor/todo-spec.js
