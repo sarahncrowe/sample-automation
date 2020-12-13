@@ -14,6 +14,7 @@ beforeEach(() => {
 })
 
 describe('Cypress Sample Automation - Homepage', function() {
+    
     it('automationpractice.com home page is displayed', () => {
 
         cy.location().should((location) => {
@@ -27,6 +28,56 @@ describe('Cypress Sample Automation - Homepage', function() {
          cy.get(c.cartButton)
            .should('be.visible')
            .should('contain', 'Cart')
+    })
+
+    it('User can view Popular items', () => {
+        cy.get(c.popularItemsTab + '.active')
+          .should('exist');
+
+        cy.get(c.popularItems).then(($count) => {
+            const itemCount = $count.length;
+
+            for (let i = 1; i <= itemCount; i++){
+                cy.get(c.popularItems + ':nth-child('+ i +')')
+                  .trigger('mouseover');
+
+                cy.get(c.popularItems + ':nth-child('+ i +') > div > div.right-block > div.button-container > a.button.ajax_add_to_cart_button')
+                  .should('be.visible');
+                cy.get(c.popularItems + ':nth-child('+ i +') > div > div.right-block > div.button-container > a.button.lnk_view')
+                  .should('be.visible');
+
+              cy.get(c.popularItems + ':nth-child('+ i +')')
+                .trigger('mouseout');
+            }
+        })
+    })
+
+    it('User can view Best Seller items', () => {
+        cy.get(c.bestSellerItemsTab + '.active')
+          .should('not.exist');
+
+        cy.get(c.bestSellerItemsTab)
+          .click();
+
+        cy.get(c.bestSellerItemsTab + '.active')
+          .should('exist');
+
+        cy.get(c.bestSellerItems).then(($count) => {
+            const itemCount = $count.length;
+
+            for (let i = 1; i <= itemCount; i++){
+                cy.get(c.bestSellerItems + ':nth-child('+ i +')')
+                  .trigger('mouseover');
+
+                cy.get(c.bestSellerItems + ':nth-child('+ i +') > div > div.right-block > div.button-container > a.button.ajax_add_to_cart_button')
+                  .should('be.visible');
+                cy.get(c.bestSellerItems + ':nth-child('+ i +') > div > div.right-block > div.button-container > a.button.lnk_view')
+                  .should('be.visible');
+
+              cy.get(c.bestSellerItems + ':nth-child('+ i +')')
+                .trigger('mouseout');
+            }
+        })
     })
 
     it('User can sign up for Newsletter', () => {
