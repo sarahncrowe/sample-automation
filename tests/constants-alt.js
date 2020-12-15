@@ -1,6 +1,6 @@
-/* Why use constants?
+/* Why use named selectors?
 
-In my experience, human readable constants are easier for maintenance and debugging - particularly when the selector doesn't have
+In my experience, human readable named selectors are easier for maintenance and debugging - particularly when the selector doesn't have
 a recognizable id or class. For example, say the following assertion (TestCafe) returned false:
 
 await t
@@ -13,8 +13,8 @@ await t
     .expect(Selector(submitButton).visible).ok();
 
 
-With the constant, I know immediately that I'm looking for a submit button and I can quickly determine if the button is actually
-missing or if the selector just needs to be updated. That brings me to the next perk - when you update the constant, it's immediately
+With the named selector, I know immediately that I'm looking for a submit button and I can quickly determine if the button is actually
+missing or if the selector just needs to be updated. That brings me to the next perk - when you update the named selector, it's immediately
 updated in all files that use it.
 
 */

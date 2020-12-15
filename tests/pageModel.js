@@ -1,26 +1,23 @@
-/* Omigosh I just learned what a Page Object Model is. I feel like I've seen the light and also just want to facepalm.
+/* Omigosh I just learned what a Page Object Model is. I feel like I've seen the light and also just want to facepalm. */
 
-earlier:
-
-In my experience, human readable named selectors are easier for maintenance and debugging - particularly when the selector doesn't have
-a recognizable id or class. For example, say the following assertion (TestCafe) returned false:
-
-await t
-    .expect(Selector(div.content > div:nth-child(3) > div > div > div:nth-child(3) > div > a).visible).ok();
+import { Selector } from 'testcafe';
 
 
-Compared to:
 
-await t
-    .expect(Selector(submitButton).visible).ok();
+class Page {
+    constructor () {
+        this.logo = Selector('#header_logo > a > img');
 
+        this.newsletterLabel = Selector('#newsletter_block_left > h4');
+        this.newsletterInput = Selector('#newsletter-input');
+        this.newsletterSuccess = Selector('#columns > p.alert-success');
+        this.newsletterError = Selector('#columns > p.alert-danger');
+    }
+}
 
-With the named selector, I know immediately that I'm looking for a submit button and I can quickly determine if the button is actually
-missing or if the selector just needs to be updated. That brings me to the next perk - when you update the named selector, it's immediately
-updated in all files that use it.
+export const page = new Page();
 
-*/
-
+/*
 // header
 
 export const logo = '#header_logo > a > img';
@@ -82,3 +79,5 @@ export const newsletterError = '#columns > p.alert-danger';
 // category page
 
 export const categoryTitle = '#center_column > h1.page-heading.product-listing > span.cat-name';
+
+*/
