@@ -8,3 +8,4 @@ tests/debug.log
 tests/cypress/screenshots/
 tests/cypress/videos/
 tests/Protractor/todo-spec.js
+devtool.code-workspace
