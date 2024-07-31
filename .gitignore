@@ -9,3 +9,7 @@ tests/cypress/screenshots/
 tests/cypress/videos/
 tests/Protractor/todo-spec.js
 devtool.code-workspace
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
