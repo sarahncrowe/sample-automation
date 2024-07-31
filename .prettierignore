@@ -1,0 +1,9 @@
+.semaphore/
+node_modules/
+test-report/
+test-results/
+tests-examples/
+.prettierrc
+**/*.yml
+**/*.json
+**/*.md
