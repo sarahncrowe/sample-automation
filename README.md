@@ -15,6 +15,7 @@ A collection of sample automation using different tools and frameworks. The test
 [website](https://devexpress.github.io/testcafe/)  
 [test files](tests/TestCafe)
 
+---
 
 **Deprecated**:
-- Protractor, EOL August 2023. Removed in #5
+- Protractor, EOL August 2023. Removed in #6
