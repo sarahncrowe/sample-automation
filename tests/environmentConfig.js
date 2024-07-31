@@ -1,15 +1,14 @@
-//////////////////////////////////////////////////////
-//          ENVIRONMENTCONFIG.JS - MASTER           //
-//                                                  //
-//                                                  //
-//////////////////////////////////////////////////////
+const baseConfig = {
+	url: 'https://www.saucedemo.com/',
+	password: 'secret_sauce',
 
-//login info
+	standardUser: {
+		username: 'standard_user',
+		password: 'secret_sauce'
+	},
+	lockedUser: 'locked_out_user',
+	problemUser: 'problem_user',
+	errorUser: 'error_user'
+};
 
-export const validUser = 'sampletester';
-export const validPass = 'samplepassword';
-
-
-// url
-
-export const environment = 'http://automationpractice.com/index.php';
+export default baseConfig;

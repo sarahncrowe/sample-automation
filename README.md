@@ -7,10 +7,15 @@ A collection of sample automation using different tools and frameworks. The test
 [website](https://www.cypress.io/)  
 [test files](tests/cypress/integration)
 
-### Protractor
-[website](https://www.protractortest.org/)  
-[test files](tests/Protractor)
+### Playwright
+[website](https://playwright.dev/)  
+[test files](tests/playwright)
 
 ### TestCafe
 [website](https://devexpress.github.io/testcafe/)  
 [test files](tests/TestCafe)
+
+---
+
+**Deprecated**:
+- Protractor, EOL August 2023. Removed in #6
