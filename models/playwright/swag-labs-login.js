@@ -1,5 +1,5 @@
 class SwagLabsLogin {
-	constructor() {
+	constructor(page) {
 		this.page = page;
 
 		this.username = page.locator('#user-name');

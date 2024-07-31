@@ -1,18 +1,14 @@
-/* Omigosh I just learned what a Page Object Model is. I feel like I've seen the light and also just want to facepalm. */
-
 import { Selector } from 'testcafe';
 
-
-
 class Page {
-    constructor () {
-        this.logo = Selector('#header_logo > a > img');
+	constructor() {
+		this.logo = Selector('#header_logo > a > img');
 
-        this.newsletterLabel = Selector('#newsletter_block_left > h4');
-        this.newsletterInput = Selector('#newsletter-input');
-        this.newsletterSuccess = Selector('#columns > p.alert-success');
-        this.newsletterError = Selector('#columns > p.alert-danger');
-    }
+		this.newsletterLabel = Selector('#newsletter_block_left > h4');
+		this.newsletterInput = Selector('#newsletter-input');
+		this.newsletterSuccess = Selector('#columns > p.alert-success');
+		this.newsletterError = Selector('#columns > p.alert-danger');
+	}
 }
 
 export const page = new Page();
