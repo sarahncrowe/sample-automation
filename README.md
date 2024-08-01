@@ -18,4 +18,4 @@ A collection of sample automation using different tools and frameworks. The test
 ---
 
 **Deprecated**:
-- Protractor, EOL August 2023. Removed in #6
+- [Protractor, EOL August 2023](https://github.com/sarahncrowe/sample-automation/pull/6/commits/fc4bcfe788250fd108c89e421897c3dfea395e38)
