@@ -19,6 +19,6 @@ test.describe('Read Home Page', () => {
 	test('User can view items for sale', async ({ page }) => {
 		const homepage = new SwagLabsHome(page);
 
-		await expect(homepage.productsHeader).not.toBeVisible();
+		await expect(homepage.productsHeader).toBeVisible();
 	});
 });
