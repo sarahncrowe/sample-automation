@@ -5,7 +5,7 @@ class SwagLabsHome {
 	readonly logo: Locator
 	readonly productsHeader: Locator
 
-	constructor(page) {
+	constructor(page: Page) {
 		this.page = page;
 
 		this.logo = page.locator('.app-logo');
