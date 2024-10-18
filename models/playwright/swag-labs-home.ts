@@ -1,5 +1,11 @@
+import { type Locator, type Page } from '@playwright/test'
+
 class SwagLabsHome {
-	constructor(page) {
+	readonly page: Page
+	readonly logo: Locator
+	readonly productsHeader: Locator
+
+	constructor(page: Page) {
 		this.page = page;
 
 		this.logo = page.locator('.app-logo');
