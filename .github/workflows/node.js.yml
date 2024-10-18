@@ -3,10 +3,7 @@
 
 name: Playwright Tests
 on:
-  push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
+  [push]
 jobs:
   test:
     timeout-minutes: 60
