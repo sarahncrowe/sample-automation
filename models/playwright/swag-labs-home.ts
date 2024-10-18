@@ -1,4 +1,10 @@
+import { type Locator, type Page } from '@playwright/test'
+
 class SwagLabsHome {
+	readonly page: Page
+	readonly logo: Locator
+	readonly productsHeader: Locator
+
 	constructor(page) {
 		this.page = page;
 
