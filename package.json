@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "testcafe": "^3.6.2"
+    "testcafe": "^3.7.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.45.3",
