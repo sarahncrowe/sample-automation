@@ -1,4 +1,5 @@
 node_modules/
+.idea/
 tests/debug.log
 tests/cypress/screenshots/
 tests/cypress/videos/
