@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 	await page.goto(`${personalSite.url}/projects`);
 });
 
-test.describe('Read Projects Page', () => {
+test.describe('Page Structure', () => {
 	test('User can see the page title', async ({ page }) => {
 		await expect(page).toHaveTitle(/projects/i);
 	});
@@ -26,7 +26,7 @@ test.describe('Read Projects Page', () => {
 	});
 });
 
-test.describe('Filter Projects by Framework', () => {
+test.describe('Framework Tabs', () => {
 	test('User can see all framework tabs', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.playwrightTab).toBeVisible();
@@ -43,7 +43,7 @@ test.describe('Filter Projects by Framework', () => {
 	});
 });
 
-test.describe('Browse Project Files', () => {
+test.describe('File Browser', () => {
 	test('User can see the file browser', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.fileBrowserPanel).toBeVisible();
@@ -64,7 +64,7 @@ test.describe('Browse Project Files', () => {
 	});
 });
 
-test.describe('Read Projects Page Links', () => {
+test.describe('Links', () => {
 	test('User can navigate to the GitHub repository', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.githubLink).toHaveAttribute(

@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 	await page.goto(personalSite.url);
 });
 
-test.describe('Read Home Page', () => {
+test.describe('Page Structure', () => {
 	test('User can see the page title', async ({ page }) => {
 		await expect(page).toHaveTitle(/sarah\s*crowe/i);
 	});
@@ -23,7 +23,7 @@ test.describe('Read Home Page', () => {
 	});
 });
 
-test.describe('Navigate Home Page', () => {
+test.describe('Navigation', () => {
 	test('User can see the navigation bar', async ({ page }) => {
 		const home = new HomePage(page);
 		await expect(home.nav).toBeVisible();
@@ -46,7 +46,7 @@ test.describe('Navigate Home Page', () => {
 	});
 });
 
-test.describe('Read Home Page Content', () => {
+test.describe('Content', () => {
 	test('User can read the hero introduction', async ({ page }) => {
 		const home = new HomePage(page);
 		await expect(home.heroSection).toBeVisible();
@@ -71,7 +71,7 @@ test.describe('Read Home Page Content', () => {
 	});
 });
 
-test.describe('Read Home Page Links', () => {
+test.describe('Links & Contact', () => {
 	test('User can navigate to GitHub profile', async ({ page }) => {
 		const home = new HomePage(page);
 		await expect(home.githubLink.first()).toHaveAttribute('href', /github\.com\/sarahncrowe/i);
