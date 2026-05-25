@@ -89,6 +89,7 @@ test.describe('Links & Contact', () => {
     expect(externalLinks.length).toBeGreaterThan(0);
     for (const link of externalLinks) {
       await expect(link).toHaveAttribute('target', '_blank');
+      await expect(link).toHaveAttribute('rel', /noopener/);
     }
   });
 });

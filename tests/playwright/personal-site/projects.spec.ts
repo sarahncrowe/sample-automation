@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test';
 import ProjectsPage from '../../../models/playwright/personal-site/projects-page';
 
+const PROJECT_NAME = 'sample-automation';
+
 test.beforeEach(async ({ page }) => {
   await page.goto('/projects');
 });
@@ -13,7 +15,7 @@ test.describe('Page Structure', () => {
   test('User can see the project name', async ({ page }) => {
     const projects = new ProjectsPage(page);
     await expect(projects.heading).toBeVisible();
-    await expect(projects.heading).toHaveText('sample-automation');
+    await expect(projects.heading).toHaveText(PROJECT_NAME);
   });
 
   test('User can read the project description', async ({ page }) => {
