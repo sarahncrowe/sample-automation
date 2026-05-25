@@ -19,17 +19,17 @@ class ProjectsPage {
 		this.page = page;
 		this.heading = page.getByRole('heading', { level: 1 });
 		this.description = page.locator('p').first();
-		this.playwrightTab = page.locator('#fw-tab-playwright');
-		this.testcafeTab = page.locator('#fw-tab-testcafe');
-		this.cypressTab = page.locator('#fw-tab-cypress');
-		this.fileBrowserPanel = page.locator('#file-browser-panel');
-		this.fileItems = page.locator('[id^="file-tab-"]');
-		this.codePanel = page.locator('#code-panel');
-		this.codeContent = page.locator('#code-panel code[class*="language-"]');
-		// data-testid targets the repo link specifically; avoids matching the CI badge link
+		this.playwrightTab = page.getByTestId('tab-playwright');
+		this.testcafeTab = page.getByTestId('tab-testcafe');
+		this.cypressTab = page.getByTestId('tab-cypress');
+		this.fileBrowserPanel = page.getByTestId('file-browser');
+		// file item testids follow the pattern "file-{filename}" (always contain a dot)
+		this.fileItems = page.locator('[data-testid^="file-"][data-testid*="."]');
+		this.codePanel = page.getByTestId('code-panel');
+		this.codeContent = page.getByTestId('syntax-highlighter');
 		this.githubLink = page.getByTestId('github-repo-link');
-		this.stackBlitzLink = page.locator('a[href*="stackblitz.com"]');
-		this.backToHomeLink = page.getByRole('link', { name: 'Back to home' });
+		this.stackBlitzLink = page.getByTestId('stackblitz-section').getByRole('link');
+		this.backToHomeLink = page.getByTestId('back-link');
 	}
 }
 
