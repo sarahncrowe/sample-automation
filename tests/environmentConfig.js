@@ -1,9 +1,9 @@
 const baseConfig = {
-	url: 'https://www.saucedemo.com/',
-	personalSite: {
-		url: 'https://sarahncrowe.com'
-	},
-	password: 'secret_sauce',
+  url: 'https://www.saucedemo.com/',
+  personalSite: {
+    url: 'https://sarahncrowe.com',
+  },
+  password: 'secret_sauce',
 
   standardUser: {
     username: 'standard_user',
