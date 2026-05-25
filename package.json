@@ -10,13 +10,18 @@
     "testcafe": "^3.7.4"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.60.0",
     "@types/node": "^22.0.0",
+    "eslint": "^10.4.0",
+    "eslint-plugin-playwright": "^2.10.4",
     "playwright": "^1.45.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.0"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
