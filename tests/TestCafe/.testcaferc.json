@@ -1,5 +1,6 @@
 {
-    "browsers": "chrome",
+    "browsers": "chrome:headless",
     "skipJsErrors": true,
-    "skipUncaughtErrors": true
+    "skipUncaughtErrors": true,
+    "retries": 1
 }
