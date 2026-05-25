@@ -35,38 +35,33 @@ module.exports = defineConfig({
 	projects: [
 		{
 			name: 'chromium',
-			use: { ...devices['Desktop Chrome'] }
+			use: { ...devices['Desktop Chrome'] },
+			testIgnore: '**/personal-site/**'
 		},
 
 		{
 			name: 'firefox',
-			use: { ...devices['Desktop Firefox'] }
+			use: { ...devices['Desktop Firefox'] },
+			testIgnore: '**/personal-site/**'
+		},
+
+		{
+			name: 'personal-site-chrome',
+			use: { ...devices['Desktop Chrome'], baseURL: 'https://sarahncrowe.com' },
+			testMatch: '**/personal-site/**/*.spec.ts'
+		},
+
+		{
+			name: 'personal-site-firefox',
+			use: { ...devices['Desktop Firefox'], baseURL: 'https://sarahncrowe.com' },
+			testMatch: '**/personal-site/**/*.spec.ts'
+		},
+
+		{
+			name: 'personal-site-safari',
+			use: { ...devices['Desktop Safari'], baseURL: 'https://sarahncrowe.com' },
+			testMatch: '**/personal-site/**/*.spec.ts'
 		}
-		/*
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    }, */
-
-		/* Test against mobile viewports. */
-		// {
-		//   name: 'Mobile Chrome',
-		//   use: { ...devices['Pixel 5'] },
-		// },
-		// {
-		//   name: 'Mobile Safari',
-		//   use: { ...devices['iPhone 12'] },
-		// },
-
-		/* Test against branded browsers. */
-		// {
-		//   name: 'Microsoft Edge',
-		//   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-		// },
-		// {
-		//   name: 'Google Chrome',
-		//   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-		// },
 	]
 
 	/* Run your local dev server before starting the tests */
