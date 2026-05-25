@@ -16,8 +16,10 @@ module.exports = defineConfig({
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  /* 1 retry to handle transient CDN/network flakiness on live sites */
+  retries: 1,
+  /* 15s is sufficient for all personal-site interactions; file browser code panel sets its own higher timeout */
+  timeout: 15000,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -36,37 +38,32 @@ module.exports = defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: '**/personal-site/**',
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+      testIgnore: '**/personal-site/**',
     },
-    /*
+
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    }, */
+      name: 'personal-site-chrome',
+      use: { ...devices['Desktop Chrome'], baseURL: 'https://sarahncrowe.com' },
+      testMatch: '**/personal-site/**/*.spec.ts',
+    },
 
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
+    {
+      name: 'personal-site-firefox',
+      use: { ...devices['Desktop Firefox'], baseURL: 'https://sarahncrowe.com' },
+      testMatch: '**/personal-site/**/*.spec.ts',
+    },
 
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      name: 'personal-site-safari',
+      use: { ...devices['Desktop Safari'], baseURL: 'https://sarahncrowe.com' },
+      testMatch: '**/personal-site/**/*.spec.ts',
+    },
   ],
 
   /* Run your local dev server before starting the tests */
