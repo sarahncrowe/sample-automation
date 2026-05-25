@@ -25,7 +25,7 @@ class ProjectsPage {
 		this.fileBrowserPanel = page.locator('#file-browser-panel');
 		this.fileItems = page.locator('[id^="file-tab-"]');
 		this.codePanel = page.locator('#code-panel');
-		this.codeContent = page.locator('#code-panel pre, #code-panel code').first();
+		this.codeContent = page.locator('#code-panel code[class*="language-"]');
 		// data-testid targets the repo link specifically; avoids matching the CI badge link
 		this.githubLink = page.getByTestId('github-repo-link');
 		this.stackBlitzLink = page.locator('a[href*="stackblitz.com"]');
