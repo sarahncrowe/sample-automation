@@ -1,7 +1,7 @@
 import env from '../environmentConfig';
 import SwagLabsLogin from '../../models/playwright/swag-labs-login';
 import SwagLabsHome from '../../models/playwright/swag-labs-home';
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 const { url, standardUser } = env;
 

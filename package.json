@@ -12,9 +12,12 @@
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@types/node": "^22.0.0",
-    "playwright": "^1.45.3"
+    "playwright": "^1.45.3",
+    "typescript": "^6.0.3"
   },
-  "scripts": {},
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sarahncrowe/sample-automation.git"
