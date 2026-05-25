@@ -1,11 +1,8 @@
 import { test, expect } from '@playwright/test';
-import env from '../../environmentConfig';
 import ProjectsPage from '../../../models/playwright/personal-site/projects-page';
 
-const { personalSite } = env;
-
 test.beforeEach(async ({ page }) => {
-  await page.goto(`${personalSite.url}/projects`);
+  await page.goto('/projects');
 });
 
 test.describe('Page Structure', () => {
@@ -78,6 +75,6 @@ test.describe('Links', () => {
   test('User can navigate back to the home page', async ({ page }) => {
     const projects = new ProjectsPage(page);
     await projects.backToHomeLink.click();
-    await expect(page).toHaveURL(personalSite.url + '/');
+    await expect(page).toHaveURL('/');
   });
 });

@@ -1,11 +1,8 @@
 import { test, expect } from '@playwright/test';
-import env from '../../environmentConfig';
 import HomePage from '../../../models/playwright/personal-site/home-page';
 
-const { personalSite } = env;
-
 test.beforeEach(async ({ page }) => {
-  await page.goto(personalSite.url);
+  await page.goto('/');
 });
 
 test.describe('Page Structure', () => {
