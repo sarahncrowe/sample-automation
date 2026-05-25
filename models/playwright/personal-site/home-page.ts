@@ -18,19 +18,19 @@ class HomePage {
 
 	constructor(page: Page) {
 		this.page = page;
-		this.nav = page.getByRole('navigation');
-		this.navLinks = this.nav.getByRole('link');
-		this.heroSection = page.locator('#hero');
-		this.aboutSection = page.locator('#about-detail');
-		this.experienceSection = page.locator('#experience');
-		this.skillsSection = page.locator('#skills');
-		this.contactSection = page.locator('#contact');
-		this.heroHeading = page.getByRole('heading', { level: 1 });
-		this.aboutText = page.locator('#about-detail p').first();
+		this.nav = page.getByTestId('navbar');
+		this.navLinks = page.getByTestId('nav-links').getByRole('link');
+		this.heroSection = page.getByTestId('hero-section');
+		this.aboutSection = page.getByTestId('about-section');
+		this.experienceSection = page.getByTestId('experience-section');
+		this.skillsSection = page.getByTestId('skills-section');
+		this.contactSection = page.getByTestId('contact-section');
+		this.heroHeading = page.getByTestId('hero-name');
+		this.aboutText = page.getByTestId('about-bio');
 		this.images = page.locator('img');
-		this.githubLink = page.locator('a[href*="github.com"]');
-		this.linkedinLink = page.locator('a[href*="linkedin.com"]');
-		this.contactEmail = page.locator('a[href^="mailto:"]');
+		this.githubLink = page.getByTestId('contact-github');
+		this.linkedinLink = page.getByTestId('contact-linkedin');
+		this.contactEmail = page.getByTestId('contact-email');
 	}
 }
 

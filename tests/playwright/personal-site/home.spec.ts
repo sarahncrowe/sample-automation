@@ -74,20 +74,17 @@ test.describe('Content', () => {
 test.describe('Links & Contact', () => {
 	test('User can navigate to GitHub profile', async ({ page }) => {
 		const home = new HomePage(page);
-		await expect(home.githubLink.first()).toHaveAttribute('href', /github\.com\/sarahncrowe/i);
+		await expect(home.githubLink).toHaveAttribute('href', /github\.com\/sarahncrowe/i);
 	});
 
 	test('User can navigate to LinkedIn profile', async ({ page }) => {
 		const home = new HomePage(page);
-		// Update the regex to match your full LinkedIn profile URL if needed
-		await expect(home.linkedinLink.first()).toHaveAttribute('href', /linkedin\.com\/in\//i);
+		await expect(home.linkedinLink).toHaveAttribute('href', /linkedin\.com\/in\//i);
 	});
 
 	test('User can find contact information', async ({ page }) => {
 		const home = new HomePage(page);
-		const hasEmail = (await home.contactEmail.count()) > 0;
-		const hasForm = (await page.locator('#contact form, form').count()) > 0;
-		expect(hasEmail || hasForm).toBe(true);
+		await expect(home.contactEmail).toBeVisible();
 	});
 
 	test('User can open external links in a new tab', async ({ page }) => {
