@@ -20,5 +20,5 @@ module.exports = tseslint.config(
     rules: {
       ...playwright.configs['flat/recommended'].rules,
     },
-  }
+  },
 );
