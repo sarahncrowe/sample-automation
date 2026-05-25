@@ -16,8 +16,10 @@ module.exports = defineConfig({
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* No retries — tests against live sites should be deterministic; bump to 1 if CDN flakiness appears in CI */
-  retries: 0,
+  /* 1 retry to handle transient CDN/network flakiness on live sites */
+  retries: 1,
+  /* 15s is sufficient for all personal-site interactions; file browser code panel sets its own higher timeout */
+  timeout: 15000,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
