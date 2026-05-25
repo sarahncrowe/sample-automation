@@ -8,12 +8,12 @@ test.beforeEach(async ({ page }) => {
 	await page.goto(personalSite.url);
 });
 
-test.describe('Page Structure', () => {
-	test('has correct page title', async ({ page }) => {
+test.describe('Read Home Page', () => {
+	test('User can see the page title', async ({ page }) => {
 		await expect(page).toHaveTitle(/sarah\s*crowe/i);
 	});
 
-	test('all major sections are visible', async ({ page }) => {
+	test('User can see all major sections', async ({ page }) => {
 		const home = new HomePage(page);
 		await expect(home.heroSection).toBeVisible();
 		await expect(home.aboutSection).toBeVisible();
@@ -23,14 +23,14 @@ test.describe('Page Structure', () => {
 	});
 });
 
-test.describe('Navigation', () => {
-	test('navigation bar is visible', async ({ page }) => {
+test.describe('Navigate Home Page', () => {
+	test('User can see the navigation bar', async ({ page }) => {
 		const home = new HomePage(page);
 		await expect(home.nav).toBeVisible();
 		await expect(home.navLinks.first()).toBeVisible();
 	});
 
-	test('nav links scroll to correct sections', async ({ page }) => {
+	test('User can navigate to page sections', async ({ page }) => {
 		// "Projects" navigates to a separate page so it is excluded from the scroll test
 		const navSections = [
 			{ linkName: 'About', sectionLocator: '#about-detail' },
@@ -46,22 +46,22 @@ test.describe('Navigation', () => {
 	});
 });
 
-test.describe('Content', () => {
-	test('hero section displays intro text', async ({ page }) => {
+test.describe('Read Home Page Content', () => {
+	test('User can read the hero introduction', async ({ page }) => {
 		const home = new HomePage(page);
 		await expect(home.heroSection).toBeVisible();
 		await expect(home.heroHeading).toBeVisible();
 		await expect(home.heroHeading).not.toBeEmpty();
 	});
 
-	test('about section has bio content', async ({ page }) => {
+	test('User can read the about section', async ({ page }) => {
 		const home = new HomePage(page);
 		await expect(home.aboutSection).toBeVisible();
 		await expect(home.aboutText).toBeVisible();
 		await expect(home.aboutText).not.toBeEmpty();
 	});
 
-	test('icons load correctly', async ({ page }) => {
+	test('User can see all images', async ({ page }) => {
 		const home = new HomePage(page);
 		const images = await home.images.all();
 		for (const img of images) {
@@ -71,26 +71,26 @@ test.describe('Content', () => {
 	});
 });
 
-test.describe('Links & Contact', () => {
-	test('GitHub link has correct URL', async ({ page }) => {
+test.describe('Read Home Page Links', () => {
+	test('User can navigate to GitHub profile', async ({ page }) => {
 		const home = new HomePage(page);
 		await expect(home.githubLink.first()).toHaveAttribute('href', /github\.com\/sarahncrowe/i);
 	});
 
-	test('LinkedIn link has correct URL', async ({ page }) => {
+	test('User can navigate to LinkedIn profile', async ({ page }) => {
 		const home = new HomePage(page);
 		// Update the regex to match your full LinkedIn profile URL if needed
 		await expect(home.linkedinLink.first()).toHaveAttribute('href', /linkedin\.com\/in\//i);
 	});
 
-	test('contact section has email or form', async ({ page }) => {
+	test('User can find contact information', async ({ page }) => {
 		const home = new HomePage(page);
 		const hasEmail = (await home.contactEmail.count()) > 0;
 		const hasForm = (await page.locator('#contact form, form').count()) > 0;
 		expect(hasEmail || hasForm).toBe(true);
 	});
 
-	test('external links open in new tab', async ({ page }) => {
+	test('User can open external links in a new tab', async ({ page }) => {
 		const externalLinks = await page
 			.locator('a[href^="http"]:not([href*="sarahncrowe.com"])')
 			.all();

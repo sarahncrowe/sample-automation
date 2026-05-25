@@ -8,33 +8,33 @@ test.beforeEach(async ({ page }) => {
 	await page.goto(`${personalSite.url}/projects`);
 });
 
-test.describe('Page Structure', () => {
-	test('has correct page title', async ({ page }) => {
+test.describe('Read Projects Page', () => {
+	test('User can see the page title', async ({ page }) => {
 		await expect(page).toHaveTitle(/projects/i);
 	});
 
-	test('project name heading is visible', async ({ page }) => {
+	test('User can see the project name', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.heading).toBeVisible();
 		await expect(projects.heading).toHaveText('sample-automation');
 	});
 
-	test('project description is visible', async ({ page }) => {
+	test('User can read the project description', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.description).toBeVisible();
 		await expect(projects.description).not.toBeEmpty();
 	});
 });
 
-test.describe('Framework Tabs', () => {
-	test('all framework tabs are visible', async ({ page }) => {
+test.describe('Filter Projects by Framework', () => {
+	test('User can see all framework tabs', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.playwrightTab).toBeVisible();
 		await expect(projects.testcafeTab).toBeVisible();
 		await expect(projects.cypressTab).toBeVisible();
 	});
 
-	test('clicking a framework tab updates the file list', async ({ page }) => {
+	test('User can filter files by framework', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.fileItems.first()).toBeVisible({ timeout: 15000 });
 		await projects.testcafeTab.click();
@@ -43,20 +43,20 @@ test.describe('Framework Tabs', () => {
 	});
 });
 
-test.describe('File Browser', () => {
-	test('file browser panel is visible', async ({ page }) => {
+test.describe('Browse Project Files', () => {
+	test('User can see the file browser', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.fileBrowserPanel).toBeVisible();
 	});
 
-	test('file list contains at least one file on load', async ({ page }) => {
+	test('User can see files on load', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.fileItems.first()).toBeVisible({ timeout: 15000 });
 		const count = await projects.fileItems.count();
 		expect(count).toBeGreaterThan(0);
 	});
 
-	test('clicking a file loads code in the code panel', async ({ page }) => {
+	test('User can view file code', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.fileItems.first()).toBeVisible({ timeout: 15000 });
 		await projects.fileItems.first().click();
@@ -64,8 +64,8 @@ test.describe('File Browser', () => {
 	});
 });
 
-test.describe('Links', () => {
-	test('View on GitHub link points to correct repo', async ({ page }) => {
+test.describe('Read Projects Page Links', () => {
+	test('User can navigate to the GitHub repository', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.githubLink).toHaveAttribute(
 			'href',
@@ -73,12 +73,12 @@ test.describe('Links', () => {
 		);
 	});
 
-	test('Open in StackBlitz link is present', async ({ page }) => {
+	test('User can open the project in StackBlitz', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await expect(projects.stackBlitzLink).toBeVisible();
 	});
 
-	test('Back to home link navigates to homepage', async ({ page }) => {
+	test('User can navigate back to the home page', async ({ page }) => {
 		const projects = new ProjectsPage(page);
 		await projects.backToHomeLink.click();
 		await expect(page).toHaveURL(personalSite.url + '/');
