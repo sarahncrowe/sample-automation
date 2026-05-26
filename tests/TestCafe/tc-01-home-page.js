@@ -22,7 +22,9 @@ const user = Role(
   { preserveUrl: true },
 );
 
-fixture`TestCafe Sample Automation - Homepage`.page(url).beforeEach(async t => {
+// Swag Labs suite skipped — only personal site tests run in this suite
+// eslint-disable-next-line testcafe-community/no-skipped-tests
+fixture.skip`TestCafe Sample Automation - Homepage`.page(url).beforeEach(async t => {
   await t.useRole(user);
 });
 
