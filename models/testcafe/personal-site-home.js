@@ -14,6 +14,14 @@ class PersonalSiteHome {
     this.githubLink = Selector('[data-testid="contact-github"]');
     this.linkedinLink = Selector('[data-testid="contact-linkedin"]');
     this.contactEmail = Selector('[data-testid="contact-email"]');
+    this.experienceList = Selector('[data-testid="experience-list"]');
+    this.experienceCard = index => Selector(`[data-testid="experience-card-${index}"]`);
+    this.experienceModal = Selector('[data-testid="experience-modal"]');
+    this.modalClose = Selector('[data-testid="modal-close"]');
+    this.modalTitle = Selector('[data-testid="modal-title"]');
+    this.modalCompany = Selector('[data-testid="modal-company"]');
+    this.modalDescription = Selector('[data-testid="modal-description"]');
+    this.modalTags = Selector('[data-testid="modal-tags"]');
   }
 }
 

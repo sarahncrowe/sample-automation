@@ -16,6 +16,14 @@ class HomePage {
   readonly githubLink: Locator;
   readonly linkedinLink: Locator;
   readonly contactEmail: Locator;
+  readonly experienceList: Locator;
+  readonly experienceCards: Locator;
+  readonly experienceModal: Locator;
+  readonly modalClose: Locator;
+  readonly modalTitle: Locator;
+  readonly modalCompany: Locator;
+  readonly modalDescription: Locator;
+  readonly modalTags: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -33,6 +41,14 @@ class HomePage {
     this.githubLink = page.getByTestId('contact-github');
     this.linkedinLink = page.getByTestId('contact-linkedin');
     this.contactEmail = page.getByTestId('contact-email');
+    this.experienceList = page.getByTestId('experience-list');
+    this.experienceCards = page.locator('[data-testid^="experience-card-"]');
+    this.experienceModal = page.getByTestId('experience-modal');
+    this.modalClose = page.getByTestId('modal-close');
+    this.modalTitle = page.getByTestId('modal-title');
+    this.modalCompany = page.getByTestId('modal-company');
+    this.modalDescription = page.getByTestId('modal-description');
+    this.modalTags = page.getByTestId('modal-tags');
   }
 }
 

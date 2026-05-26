@@ -45,6 +45,35 @@ test('About section text is visible and non-empty', async t => {
   await t.expect(home.aboutText.visible).ok().expect(home.aboutText.innerText).notEql('');
 });
 
+// Experience
+
+test('Experience card grid is visible', async t => {
+  await t.expect(home.experienceList.visible).ok().expect(home.experienceCard(0).visible).ok();
+});
+
+test('Clicking an experience card opens the modal with content', async t => {
+  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().expect(home.modalTitle.innerText).notEql('');
+});
+
+test('Experience modal closes when X button is clicked', async t => {
+  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().click(home.modalClose).expect(home.experienceModal.exists).notOk();
+});
+
+test('Experience modal closes when Escape key is pressed', async t => {
+  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().pressKey('esc').expect(home.experienceModal.exists).notOk();
+});
+
+test('Company name in modal links to LinkedIn profile and shows the LinkedIn icon', async t => {
+  await t
+    .click(home.experienceCard(0))
+    .expect(home.experienceModal.visible)
+    .ok()
+    .expect(home.modalCompany.getAttribute('href'))
+    .match(/linkedin\.com/i)
+    .expect(home.modalCompany.find('svg').visible)
+    .ok();
+});
+
 // Links & Contact
 
 test('GitHub link href matches github.com/sarahncrowe', async t => {
