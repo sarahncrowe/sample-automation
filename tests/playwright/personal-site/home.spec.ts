@@ -69,6 +69,50 @@ test.describe('Content', () => {
   });
 });
 
+test.describe('Experience', () => {
+  test('Experience card grid is visible with all cards', async ({ page }) => {
+    const home = new HomePage(page);
+    await expect(home.experienceList).toBeVisible();
+    const cards = await home.experienceCards.all();
+    expect(cards.length).toBeGreaterThan(0);
+    for (const card of cards) {
+      await expect(card).toBeVisible();
+    }
+  });
+
+  test('Clicking an experience card opens the modal with content', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.first().click();
+    await expect(home.experienceModal).toBeVisible();
+    await expect(home.modalTitle).not.toBeEmpty();
+    await expect(home.modalDescription).not.toBeEmpty();
+  });
+
+  test('Experience modal closes when X button is clicked', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.first().click();
+    await expect(home.experienceModal).toBeVisible();
+    await home.modalClose.click();
+    await expect(home.experienceModal).toBeHidden();
+  });
+
+  test('Experience modal closes when Escape key is pressed', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.first().click();
+    await expect(home.experienceModal).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(home.experienceModal).toBeHidden();
+  });
+
+  test('Company name in modal links to LinkedIn profile and shows the LinkedIn icon', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.first().click();
+    await expect(home.experienceModal).toBeVisible();
+    await expect(home.modalCompany).toHaveAttribute('href', /linkedin\.com/i);
+    await expect(home.modalCompany.locator('svg')).toBeVisible();
+  });
+});
+
 test.describe('Links & Contact', () => {
   test('User can navigate to GitHub profile', async ({ page }) => {
     const home = new HomePage(page);
