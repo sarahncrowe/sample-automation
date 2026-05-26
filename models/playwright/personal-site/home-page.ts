@@ -3,6 +3,7 @@ import { type Locator, type Page } from '@playwright/test';
 class HomePage {
   readonly page: Page;
   readonly nav: Locator;
+  readonly navBrand: Locator;
   readonly navLinks: Locator;
   readonly heroSection: Locator;
   readonly aboutSection: Locator;
@@ -19,6 +20,7 @@ class HomePage {
   constructor(page: Page) {
     this.page = page;
     this.nav = page.getByTestId('navbar');
+    this.navBrand = page.getByTestId('nav-brand');
     this.navLinks = page.getByTestId('nav-links').getByRole('link');
     this.heroSection = page.getByTestId('hero-section');
     this.aboutSection = page.getByTestId('about-section');

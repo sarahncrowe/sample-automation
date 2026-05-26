@@ -24,11 +24,12 @@ test.describe('Navigation', () => {
   test('User can see the navigation bar', async ({ page }) => {
     const home = new HomePage(page);
     await expect(home.nav).toBeVisible();
+    await expect(home.navBrand).toBeVisible();
     await expect(home.navLinks.first()).toBeVisible();
   });
 
   test('User can navigate to page sections', async ({ page }) => {
-    // "Projects" navigates to a separate page so it is excluded from the scroll test
+    // "Sample Work" navigates to a separate page so it is excluded from the scroll test
     const navSections = [
       { linkName: 'About', sectionLocator: '#about-detail' },
       { linkName: 'Experience', sectionLocator: '#experience' },
