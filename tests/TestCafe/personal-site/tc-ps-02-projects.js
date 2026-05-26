@@ -11,9 +11,9 @@ fixture`Personal Site - Projects`.page(BASE_URL);
 
 // Page Structure
 
-test('Page title contains "projects"', async t => {
+test('Page title contains "sample work"', async t => {
   const title = await getTitle();
-  await t.expect(title.toLowerCase()).contains('projects');
+  await t.expect(title.toLowerCase()).contains('sample work');
 });
 
 test('Project heading displays "sample-automation"', async t => {

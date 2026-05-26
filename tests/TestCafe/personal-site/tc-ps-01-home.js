@@ -32,7 +32,7 @@ test('All major sections are visible', async t => {
 // Navigation
 
 test('Nav bar is visible', async t => {
-  await t.expect(home.nav.visible).ok();
+  await t.expect(home.nav.visible).ok().expect(home.navBrand.visible).ok();
 });
 
 // Content

@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('Page Structure', () => {
   test('User can see the page title', async ({ page }) => {
-    await expect(page).toHaveTitle(/projects/i);
+    await expect(page).toHaveTitle(/sample work/i);
   });
 
   test('User can see the project name', async ({ page }) => {
