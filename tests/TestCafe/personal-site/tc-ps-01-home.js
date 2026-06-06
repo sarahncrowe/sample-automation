@@ -107,19 +107,19 @@ test('Dark mode toggle is visible in the navbar', async t => {
 
 test('User can enable dark mode', async t => {
   await t.expect(getHtmlClass()).notContains('dark');
-  await t.expect(home.darkModeToggle.find('i').hasClass('fa-moon')).ok();
+  await t.expect(home.darkModeToggle.find('svg[data-icon="moon"]').exists).ok();
   await t.click(home.darkModeToggle);
   await t.expect(getHtmlClass()).contains('dark').expect(home.darkModeToggle.getAttribute('aria-pressed')).eql('true');
-  await t.expect(home.darkModeToggle.find('i').hasClass('fa-sun')).ok();
+  await t.expect(home.darkModeToggle.find('svg[data-icon="sun"]').exists).ok();
 });
 
 test('User can disable dark mode', async t => {
   await t.click(home.darkModeToggle);
   await t.expect(getHtmlClass()).contains('dark');
-  await t.expect(home.darkModeToggle.find('i').hasClass('fa-sun')).ok();
+  await t.expect(home.darkModeToggle.find('svg[data-icon="sun"]').exists).ok();
   await t.click(home.darkModeToggle);
   await t.expect(getHtmlClass()).notContains('dark').expect(home.darkModeToggle.getAttribute('aria-pressed')).eql('false');
-  await t.expect(home.darkModeToggle.find('i').hasClass('fa-moon')).ok();
+  await t.expect(home.darkModeToggle.find('svg[data-icon="moon"]').exists).ok();
 });
 
 test('Dark mode preference is saved to localStorage', async t => {

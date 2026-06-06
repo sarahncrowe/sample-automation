@@ -126,23 +126,23 @@ test.describe('Dark Mode', () => {
 
   test('User can enable dark mode', async ({ page }) => {
     const home = new HomePage(page);
-    await expect(page.locator('html')).not.toHaveClass('dark');
-    await expect(home.darkModeToggle.locator('i')).toHaveClass('fa-moon');
+    await expect(page.locator('html')).not.toHaveClass(/\bdark\b/);
+    await expect(home.darkModeToggle.locator('svg[data-icon="moon"]')).toBeVisible();
     await home.darkModeToggle.click();
-    await expect(page.locator('html')).toHaveClass('dark');
+    await expect(page.locator('html')).toHaveClass(/\bdark\b/);
     await expect(home.darkModeToggle).toHaveAttribute('aria-pressed', 'true');
-    await expect(home.darkModeToggle.locator('i')).toHaveClass('fa-sun');
+    await expect(home.darkModeToggle.locator('svg[data-icon="sun"]')).toBeVisible();
   });
 
   test('User can disable dark mode', async ({ page }) => {
     const home = new HomePage(page);
     await home.darkModeToggle.click();
-    await expect(page.locator('html')).toHaveClass('dark');
-    await expect(home.darkModeToggle.locator('i')).toHaveClass('fa-sun');
+    await expect(page.locator('html')).toHaveClass(/\bdark\b/);
+    await expect(home.darkModeToggle.locator('svg[data-icon="sun"]')).toBeVisible();
     await home.darkModeToggle.click();
-    await expect(page.locator('html')).not.toHaveClass('dark');
+    await expect(page.locator('html')).not.toHaveClass(/\bdark\b/);
     await expect(home.darkModeToggle).toHaveAttribute('aria-pressed', 'false');
-    await expect(home.darkModeToggle.locator('i')).toHaveClass('fa-moon');
+    await expect(home.darkModeToggle.locator('svg[data-icon="moon"]')).toBeVisible();
   });
 
   test('Dark mode preference is saved to localStorage', async ({ page }) => {
