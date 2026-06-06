@@ -22,6 +22,7 @@ class PersonalSiteHome {
     this.modalCompany = Selector('[data-testid="modal-company"]');
     this.modalDescription = Selector('[data-testid="modal-description"]');
     this.modalTags = Selector('[data-testid="modal-tags"]');
+    this.darkModeToggle = Selector('[data-testid="dark-mode-toggle"]');
   }
 }
 

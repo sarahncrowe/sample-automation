@@ -1,6 +1,10 @@
 import { ClientFunction } from 'testcafe';
 import { personalSiteHome as home } from '../../../models/testcafe/personal-site-home';
 
+const setTheme = ClientFunction(theme => localStorage.setItem('theme', theme));
+const getTheme = ClientFunction(() => localStorage.getItem('theme'));
+const getHtmlClass = ClientFunction(() => document.documentElement.className);
+
 const BASE_URL = 'https://sarahncrowe.com';
 
 const getTitle = ClientFunction(() => document.title);
@@ -88,4 +92,37 @@ test('LinkedIn link href matches linkedin.com/in/', async t => {
 
 test('Contact email is visible', async t => {
   await t.expect(home.contactEmail.visible).ok();
+});
+
+// Dark Mode
+
+fixture`Personal Site - Home - Dark Mode`.page(BASE_URL).beforeEach(async t => {
+  await setTheme('light');
+  await t.navigateTo(BASE_URL);
+});
+
+test('Dark mode toggle is visible in the navbar', async t => {
+  await t.expect(home.darkModeToggle.visible).ok();
+});
+
+test('User can enable dark mode', async t => {
+  await t.expect(getHtmlClass()).notContains('dark');
+  await t.expect(home.darkModeToggle.find('svg[data-icon="moon"]').exists).ok();
+  await t.click(home.darkModeToggle);
+  await t.expect(getHtmlClass()).contains('dark').expect(home.darkModeToggle.getAttribute('aria-pressed')).eql('true');
+  await t.expect(home.darkModeToggle.find('svg[data-icon="sun"]').exists).ok();
+});
+
+test('User can disable dark mode', async t => {
+  await t.click(home.darkModeToggle);
+  await t.expect(getHtmlClass()).contains('dark');
+  await t.expect(home.darkModeToggle.find('svg[data-icon="sun"]').exists).ok();
+  await t.click(home.darkModeToggle);
+  await t.expect(getHtmlClass()).notContains('dark').expect(home.darkModeToggle.getAttribute('aria-pressed')).eql('false');
+  await t.expect(home.darkModeToggle.find('svg[data-icon="moon"]').exists).ok();
+});
+
+test('Dark mode preference is saved to localStorage', async t => {
+  await t.click(home.darkModeToggle);
+  await t.expect(getTheme()).eql('dark');
 });
