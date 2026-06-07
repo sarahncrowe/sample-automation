@@ -49,19 +49,19 @@ module.exports = defineConfig({
 
     {
       name: 'personal-site-chrome',
-      use: { ...devices['Desktop Chrome'], baseURL: 'https://sarahncrowe.com' },
+      use: { ...devices['Desktop Chrome'], baseURL: process.env.BASE_URL || 'https://sarahncrowe.com' },
       testMatch: '**/personal-site/**/*.spec.ts',
     },
 
     {
       name: 'personal-site-firefox',
-      use: { ...devices['Desktop Firefox'], baseURL: 'https://sarahncrowe.com' },
+      use: { ...devices['Desktop Firefox'], baseURL: process.env.BASE_URL || 'https://sarahncrowe.com' },
       testMatch: '**/personal-site/**/*.spec.ts',
     },
 
     {
       name: 'personal-site-safari',
-      use: { ...devices['Desktop Safari'], baseURL: 'https://sarahncrowe.com' },
+      use: { ...devices['Desktop Safari'], baseURL: process.env.BASE_URL || 'https://sarahncrowe.com' },
       testMatch: '**/personal-site/**/*.spec.ts',
     },
   ],

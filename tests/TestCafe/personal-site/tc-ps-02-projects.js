@@ -1,7 +1,7 @@
 import { ClientFunction } from 'testcafe';
 import { personalSiteProjects as projects } from '../../../models/testcafe/personal-site-projects';
 
-const BASE_URL = 'https://sarahncrowe.com/projects';
+const BASE_URL = `${process.env.BASE_URL || 'https://sarahncrowe.com'}/projects`;
 const PROJECT_NAME = 'sample-automation';
 
 const getTitle = ClientFunction(() => document.title);
