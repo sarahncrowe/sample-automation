@@ -22,6 +22,8 @@ class PersonalSiteHome {
     this.modalCompany = '[data-testid="modal-company"]';
     this.modalDescription = '[data-testid="modal-description"]';
     this.modalTags = '[data-testid="modal-tags"]';
+    this.modalPrev = '[data-testid="modal-prev"]';
+    this.modalNext = '[data-testid="modal-next"]';
     this.darkModeToggle = '[data-testid="dark-mode-toggle"]';
   }
 

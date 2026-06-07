@@ -1,4 +1,4 @@
-import { ClientFunction } from 'testcafe';
+import { ClientFunction, Selector } from 'testcafe';
 import { personalSiteHome as home } from '../../../models/testcafe/personal-site-home';
 
 const setTheme = ClientFunction(theme => localStorage.setItem('theme', theme));
@@ -65,6 +65,66 @@ test('Experience modal closes when X button is clicked', async t => {
 
 test('Experience modal closes when Escape key is pressed', async t => {
   await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().pressKey('esc').expect(home.experienceModal.exists).notOk();
+});
+
+test('First card does not show previous arrow', async t => {
+  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().expect(home.modalPrev.exists).notOk();
+});
+
+test('First card shows next arrow', async t => {
+  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().expect(home.modalNext.visible).ok();
+});
+
+test('Clicking next arrow navigates to the next card', async t => {
+  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok();
+  const firstTitle = await home.modalTitle.innerText;
+  await t.click(home.modalNext);
+  await t.expect(home.modalTitle.innerText).notEql(firstTitle).expect(home.modalPrev.visible).ok();
+});
+
+test('Last card does not show next arrow', async t => {
+  const cardCount = await Selector('[data-testid^="experience-card-"]').count;
+  await t
+    .click(home.experienceCard(cardCount - 1))
+    .expect(home.experienceModal.visible)
+    .ok()
+    .expect(home.modalNext.exists)
+    .notOk();
+});
+
+test('Last card shows previous arrow', async t => {
+  const cardCount = await Selector('[data-testid^="experience-card-"]').count;
+  await t
+    .click(home.experienceCard(cardCount - 1))
+    .expect(home.experienceModal.visible)
+    .ok()
+    .expect(home.modalPrev.visible)
+    .ok();
+});
+
+test('Clicking previous arrow navigates to the previous card', async t => {
+  const cardCount = await Selector('[data-testid^="experience-card-"]').count;
+  await t
+    .click(home.experienceCard(cardCount - 1))
+    .expect(home.experienceModal.visible)
+    .ok();
+  const lastTitle = await home.modalTitle.innerText;
+  await t.click(home.modalPrev);
+  await t.expect(home.modalTitle.innerText).notEql(lastTitle).expect(home.modalNext.visible).ok();
+});
+
+test('ArrowRight key navigates to the next card', async t => {
+  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok();
+  const firstTitle = await home.modalTitle.innerText;
+  await t.pressKey('right');
+  await t.expect(home.modalTitle.innerText).notEql(firstTitle);
+});
+
+test('ArrowLeft key navigates to the previous card', async t => {
+  await t.click(home.experienceCard(1)).expect(home.experienceModal.visible).ok();
+  const secondTitle = await home.modalTitle.innerText;
+  await t.pressKey('left');
+  await t.expect(home.modalTitle.innerText).notEql(secondTitle).expect(home.modalPrev.exists).notOk();
 });
 
 test('Company name in modal links to LinkedIn profile and shows the LinkedIn icon', async t => {

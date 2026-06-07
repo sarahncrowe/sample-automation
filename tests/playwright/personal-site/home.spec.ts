@@ -104,6 +104,74 @@ test.describe('Experience', () => {
     await expect(home.experienceModal).toBeHidden();
   });
 
+  test('First card does not show previous arrow', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.first().click();
+    await expect(home.experienceModal).toBeVisible();
+    await expect(home.modalPrev).not.toBeAttached();
+  });
+
+  test('First card shows next arrow', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.first().click();
+    await expect(home.experienceModal).toBeVisible();
+    await expect(home.modalNext).toBeVisible();
+  });
+
+  test('Clicking next arrow navigates to the next card', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.first().click();
+    await expect(home.experienceModal).toBeVisible();
+    const firstTitle = await home.modalTitle.textContent();
+    await home.modalNext.click();
+    await expect(home.modalTitle).not.toHaveText(firstTitle!);
+    await expect(home.modalPrev).toBeVisible();
+  });
+
+  test('Last card does not show next arrow', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.last().click();
+    await expect(home.experienceModal).toBeVisible();
+    await expect(home.modalNext).not.toBeAttached();
+  });
+
+  test('Last card shows previous arrow', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.last().click();
+    await expect(home.experienceModal).toBeVisible();
+    await expect(home.modalPrev).toBeVisible();
+  });
+
+  test('Clicking previous arrow navigates to the previous card', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.last().click();
+    await expect(home.experienceModal).toBeVisible();
+    const lastTitle = await home.modalTitle.textContent();
+    await home.modalPrev.click();
+    await expect(home.modalTitle).not.toHaveText(lastTitle!);
+    await expect(home.modalNext).toBeVisible();
+  });
+
+  test('ArrowRight key navigates to the next card', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.experienceCards.first().click();
+    await expect(home.experienceModal).toBeVisible();
+    const firstTitle = await home.modalTitle.textContent();
+    await page.keyboard.press('ArrowRight');
+    await expect(home.modalTitle).not.toHaveText(firstTitle!);
+  });
+
+  test('ArrowLeft key navigates to the previous card', async ({ page }) => {
+    const home = new HomePage(page);
+    const cards = await home.experienceCards.all();
+    await cards[1].click();
+    await expect(home.experienceModal).toBeVisible();
+    const secondTitle = await home.modalTitle.textContent();
+    await page.keyboard.press('ArrowLeft');
+    await expect(home.modalTitle).not.toHaveText(secondTitle!);
+    await expect(home.modalPrev).not.toBeAttached();
+  });
+
   test('Company name in modal links to LinkedIn profile and shows the LinkedIn icon', async ({ page }) => {
     const home = new HomePage(page);
     await home.experienceCards.first().click();

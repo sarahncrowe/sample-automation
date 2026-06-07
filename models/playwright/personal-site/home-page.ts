@@ -24,6 +24,8 @@ class HomePage {
   readonly modalCompany: Locator;
   readonly modalDescription: Locator;
   readonly modalTags: Locator;
+  readonly modalPrev: Locator;
+  readonly modalNext: Locator;
   readonly darkModeToggle: Locator;
 
   constructor(page: Page) {
@@ -50,6 +52,8 @@ class HomePage {
     this.modalCompany = page.getByTestId('modal-company');
     this.modalDescription = page.getByTestId('modal-description');
     this.modalTags = page.getByTestId('modal-tags');
+    this.modalPrev = page.getByTestId('modal-prev');
+    this.modalNext = page.getByTestId('modal-next');
     this.darkModeToggle = page.getByTestId('dark-mode-toggle');
   }
 }
