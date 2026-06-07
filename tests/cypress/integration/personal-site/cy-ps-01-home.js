@@ -98,6 +98,41 @@ describe('Experience', function () {
   });
 });
 
+describe('Dark Mode', function () {
+  beforeEach(() => {
+    cy.window().then(win => win.localStorage.setItem('theme', 'light'));
+    cy.reload();
+  });
+
+  it('Dark mode toggle is visible in the navbar', () => {
+    cy.get(home.darkModeToggle).should('be.visible');
+  });
+
+  it('User can enable dark mode', () => {
+    cy.get('html').should('not.have.class', 'dark');
+    cy.get(home.darkModeToggle).find('svg[data-icon="moon"]').should('exist');
+    cy.get(home.darkModeToggle).click();
+    cy.get('html').should('have.class', 'dark');
+    cy.get(home.darkModeToggle).should('have.attr', 'aria-pressed', 'true');
+    cy.get(home.darkModeToggle).find('svg[data-icon="sun"]').should('exist');
+  });
+
+  it('User can disable dark mode', () => {
+    cy.get(home.darkModeToggle).click();
+    cy.get('html').should('have.class', 'dark');
+    cy.get(home.darkModeToggle).find('svg[data-icon="sun"]').should('exist');
+    cy.get(home.darkModeToggle).click();
+    cy.get('html').should('not.have.class', 'dark');
+    cy.get(home.darkModeToggle).should('have.attr', 'aria-pressed', 'false');
+    cy.get(home.darkModeToggle).find('svg[data-icon="moon"]').should('exist');
+  });
+
+  it('Dark mode preference is saved to localStorage', () => {
+    cy.get(home.darkModeToggle).click();
+    cy.window().its('localStorage').invoke('getItem', 'theme').should('eq', 'dark');
+  });
+});
+
 describe('Links & Contact', function () {
   it('User can navigate to GitHub profile', () => {
     cy.get(home.githubLink)

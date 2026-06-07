@@ -22,6 +22,7 @@ class PersonalSiteHome {
     this.modalCompany = '[data-testid="modal-company"]';
     this.modalDescription = '[data-testid="modal-description"]';
     this.modalTags = '[data-testid="modal-tags"]';
+    this.darkModeToggle = '[data-testid="dark-mode-toggle"]';
   }
 
   experienceCard(index) {
