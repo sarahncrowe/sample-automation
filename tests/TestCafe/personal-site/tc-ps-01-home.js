@@ -5,7 +5,7 @@ const setTheme = ClientFunction(theme => localStorage.setItem('theme', theme));
 const getTheme = ClientFunction(() => localStorage.getItem('theme'));
 const getHtmlClass = ClientFunction(() => document.documentElement.className);
 
-const BASE_URL = 'https://sarahncrowe.com';
+const BASE_URL = process.env.BASE_URL || 'https://sarahncrowe.com';
 
 const getTitle = ClientFunction(() => document.title);
 const getLocation = ClientFunction(() => document.location.href);
