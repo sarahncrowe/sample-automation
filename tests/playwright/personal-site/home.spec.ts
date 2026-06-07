@@ -113,6 +113,46 @@ test.describe('Experience', () => {
   });
 });
 
+test.describe('Dark Mode', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.evaluate(() => localStorage.setItem('theme', 'light'));
+    await page.reload();
+  });
+
+  test('Dark mode toggle is visible in the navbar', async ({ page }) => {
+    const home = new HomePage(page);
+    await expect(home.darkModeToggle).toBeVisible();
+  });
+
+  test('User can enable dark mode', async ({ page }) => {
+    const home = new HomePage(page);
+    await expect(page.locator('html')).not.toHaveClass(/\bdark\b/);
+    await expect(home.darkModeToggle.locator('svg[data-icon="moon"]')).toBeVisible();
+    await home.darkModeToggle.click();
+    await expect(page.locator('html')).toHaveClass(/\bdark\b/);
+    await expect(home.darkModeToggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(home.darkModeToggle.locator('svg[data-icon="sun"]')).toBeVisible();
+  });
+
+  test('User can disable dark mode', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.darkModeToggle.click();
+    await expect(page.locator('html')).toHaveClass(/\bdark\b/);
+    await expect(home.darkModeToggle.locator('svg[data-icon="sun"]')).toBeVisible();
+    await home.darkModeToggle.click();
+    await expect(page.locator('html')).not.toHaveClass(/\bdark\b/);
+    await expect(home.darkModeToggle).toHaveAttribute('aria-pressed', 'false');
+    await expect(home.darkModeToggle.locator('svg[data-icon="moon"]')).toBeVisible();
+  });
+
+  test('Dark mode preference is saved to localStorage', async ({ page }) => {
+    const home = new HomePage(page);
+    await home.darkModeToggle.click();
+    const theme = await page.evaluate(() => localStorage.getItem('theme'));
+    expect(theme).toBe('dark');
+  });
+});
+
 test.describe('Links & Contact', () => {
   test('User can navigate to GitHub profile', async ({ page }) => {
     const home = new HomePage(page);
