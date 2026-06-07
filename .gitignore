@@ -3,6 +3,8 @@ node_modules/
 tests/debug.log
 tests/cypress/screenshots/
 tests/cypress/videos/
+cypress/screenshots/
+cypress/videos/
 tests/Protractor/todo-spec.js
 devtool.code-workspace
 /test-results/
