@@ -4,7 +4,7 @@
 name: Playwright Tests
 on:
   schedule:
-    - cron: '0 12 * * 6'  # Saturday noon UTC (8am EDT / 7am EST)
+    - cron: '0 12 * * 0'  # Saturday noon UTC (8am EDT / 7am EST)
     - cron: '0 12 * * 3'  # Wednesday noon UTC
   pull_request:
   workflow_dispatch:
