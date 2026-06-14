@@ -1,4 +1,16 @@
 class PersonalSiteProjects {
+  heading: string;
+  description: string;
+  playwrightTab: string;
+  testcafeTab: string;
+  cypressTab: string;
+  fileBrowserPanel: string;
+  fileItems: string;
+  codeContent: string;
+  githubLink: string;
+  stackBlitzLink: string;
+  backToHomeLink: string;
+
   constructor() {
     this.heading = 'h1';
     this.description = '[data-testid="repo-header"] p';

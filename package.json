@@ -23,7 +23,7 @@
     "typescript-eslint": "^8.60.0"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tests/TestCafe/tsconfig.json && tsc --noEmit -p tests/cypress/tsconfig.json",
     "lint": "eslint",
     "format:check": "prettier --check .",
     "test": "playwright test",

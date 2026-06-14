@@ -1,6 +1,16 @@
 import { Selector } from 'testcafe';
 
 class PersonalSiteProjects {
+  heading: Selector;
+  description: Selector;
+  playwrightTab: Selector;
+  testcafeTab: Selector;
+  cypressTab: Selector;
+  fileBrowserPanel: Selector;
+  fileItems: Selector;
+  githubLink: Selector;
+  backToHomeLink: Selector;
+
   constructor() {
     this.heading = Selector('h1');
     this.description = Selector('[data-testid="repo-header"] p');

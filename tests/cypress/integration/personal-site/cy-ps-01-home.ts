@@ -1,4 +1,4 @@
-import { personalSiteHome as home } from '../../../../models/cypress/personal-site-home.js';
+import { personalSiteHome as home } from '../../../../models/cypress/personal-site-home';
 
 beforeEach(() => {
   cy.visit('/');

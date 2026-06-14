@@ -8,7 +8,6 @@ const getHtmlClass = ClientFunction(() => document.documentElement.className);
 const BASE_URL = process.env.BASE_URL || 'https://sarahncrowe.com';
 
 const getTitle = ClientFunction(() => document.title);
-const getLocation = ClientFunction(() => document.location.href);
 
 fixture`Personal Site - Home`.page(BASE_URL);
 

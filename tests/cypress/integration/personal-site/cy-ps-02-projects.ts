@@ -1,4 +1,4 @@
-import { personalSiteProjects as projects } from '../../../../models/cypress/personal-site-projects.js';
+import { personalSiteProjects as projects } from '../../../../models/cypress/personal-site-projects';
 
 const PROJECT_NAME = 'sample-automation';
 
