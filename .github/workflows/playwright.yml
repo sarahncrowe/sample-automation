@@ -13,6 +13,8 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.60.0-jammy
+    env:
+      HOME: /root
     steps:
     - uses: actions/checkout@v6.0.2
     - name: Install dependencies
