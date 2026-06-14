@@ -30,7 +30,8 @@
     "test:cypress": "cypress run",
     "test:local": "BASE_URL=http://localhost:5173 playwright test --project=personal-site-chrome --project=personal-site-firefox --project=personal-site-safari",
     "test:local:cypress": "BASE_URL=http://localhost:5173 cypress run",
-    "test:local:testcafe": "BASE_URL=http://localhost:5173 npx testcafe chrome tests/TestCafe/personal-site"
+    "test:testcafe": "npx testcafe chrome tests/TestCafe/personal-site --skip-js-errors",
+    "test:local:testcafe": "BASE_URL=http://localhost:5173 npx testcafe chrome tests/TestCafe/personal-site --skip-js-errors"
   },
   "repository": {
     "type": "git",

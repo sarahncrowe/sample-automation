@@ -80,85 +80,87 @@ test.describe('Experience', () => {
     }
   });
 
-  test('Clicking an experience card opens the modal with content', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.first().click();
-    await expect(home.experienceModal).toBeVisible();
-    await expect(home.modalTitle).not.toBeEmpty();
-    await expect(home.modalDescription).not.toBeEmpty();
+  test.describe('when the first experience card is open', () => {
+    test.beforeEach(async ({ page }) => {
+      const home = new HomePage(page);
+      await home.experienceCards.first().click();
+      await expect(home.experienceModal).toBeVisible();
+    });
+
+    test('The modal displays content', async ({ page }) => {
+      const home = new HomePage(page);
+      await expect(home.modalTitle).not.toBeEmpty();
+      await expect(home.modalDescription).not.toBeEmpty();
+    });
+
+    test('The modal closes when X button is clicked', async ({ page }) => {
+      const home = new HomePage(page);
+      await home.modalClose.click();
+      await expect(home.experienceModal).toBeHidden();
+    });
+
+    test('The modal closes when Escape key is pressed', async ({ page }) => {
+      const home = new HomePage(page);
+      await page.keyboard.press('Escape');
+      await expect(home.experienceModal).toBeHidden();
+    });
+
+    test('The previous arrow is not shown', async ({ page }) => {
+      const home = new HomePage(page);
+      await expect(home.modalPrev).not.toBeAttached();
+    });
+
+    test('The next arrow is shown', async ({ page }) => {
+      const home = new HomePage(page);
+      await expect(home.modalNext).toBeVisible();
+    });
+
+    test('Clicking next arrow navigates to the next card', async ({ page }) => {
+      const home = new HomePage(page);
+      const firstTitle = await home.modalTitle.textContent();
+      await home.modalNext.click();
+      await expect(home.modalTitle).not.toHaveText(firstTitle!);
+      await expect(home.modalPrev).toBeVisible();
+    });
+
+    test('ArrowRight key navigates to the next card', async ({ page }) => {
+      const home = new HomePage(page);
+      const firstTitle = await home.modalTitle.textContent();
+      await page.keyboard.press('ArrowRight');
+      await expect(home.modalTitle).not.toHaveText(firstTitle!);
+    });
+
+    test('Company name links to LinkedIn profile and shows the LinkedIn icon', async ({ page }) => {
+      const home = new HomePage(page);
+      await expect(home.modalCompany).toHaveAttribute('href', /linkedin\.com/i);
+      await expect(home.modalCompany.locator('svg')).toBeVisible();
+    });
   });
 
-  test('Experience modal closes when X button is clicked', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.first().click();
-    await expect(home.experienceModal).toBeVisible();
-    await home.modalClose.click();
-    await expect(home.experienceModal).toBeHidden();
-  });
+  test.describe('when the last experience card is open', () => {
+    test.beforeEach(async ({ page }) => {
+      const home = new HomePage(page);
+      await home.experienceCards.last().click();
+      await expect(home.experienceModal).toBeVisible();
+    });
 
-  test('Experience modal closes when Escape key is pressed', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.first().click();
-    await expect(home.experienceModal).toBeVisible();
-    await page.keyboard.press('Escape');
-    await expect(home.experienceModal).toBeHidden();
-  });
+    test('The next arrow is not shown', async ({ page }) => {
+      const home = new HomePage(page);
+      await expect(home.modalNext).not.toBeAttached();
+    });
 
-  test('First card does not show previous arrow', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.first().click();
-    await expect(home.experienceModal).toBeVisible();
-    await expect(home.modalPrev).not.toBeAttached();
-  });
+    test('The previous arrow is shown', async ({ page }) => {
+      const home = new HomePage(page);
+      await expect(home.modalPrev).toBeVisible();
+    });
 
-  test('First card shows next arrow', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.first().click();
-    await expect(home.experienceModal).toBeVisible();
-    await expect(home.modalNext).toBeVisible();
-  });
-
-  test('Clicking next arrow navigates to the next card', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.first().click();
-    await expect(home.experienceModal).toBeVisible();
-    const firstTitle = await home.modalTitle.textContent();
-    await home.modalNext.click();
-    await expect(home.modalTitle).not.toHaveText(firstTitle!);
-    await expect(home.modalPrev).toBeVisible();
-  });
-
-  test('Last card does not show next arrow', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.last().click();
-    await expect(home.experienceModal).toBeVisible();
-    await expect(home.modalNext).not.toBeAttached();
-  });
-
-  test('Last card shows previous arrow', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.last().click();
-    await expect(home.experienceModal).toBeVisible();
-    await expect(home.modalPrev).toBeVisible();
-  });
-
-  test('Clicking previous arrow navigates to the previous card', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.last().click();
-    await expect(home.experienceModal).toBeVisible();
-    const lastTitle = await home.modalTitle.textContent();
-    await home.modalPrev.click();
-    await expect(home.modalTitle).not.toHaveText(lastTitle!);
-    await expect(home.modalNext).toBeVisible();
-  });
-
-  test('ArrowRight key navigates to the next card', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.first().click();
-    await expect(home.experienceModal).toBeVisible();
-    const firstTitle = await home.modalTitle.textContent();
-    await page.keyboard.press('ArrowRight');
-    await expect(home.modalTitle).not.toHaveText(firstTitle!);
+    test('Clicking previous arrow navigates to the previous card', async ({ page }) => {
+      const home = new HomePage(page);
+      const lastTitle = await home.modalTitle.textContent();
+      await home.modalPrev.click();
+      await expect(home.modalTitle).not.toHaveText(lastTitle!);
+      await expect(home.modalNext).toBeVisible();
+    });
   });
 
   test('ArrowLeft key navigates to the previous card', async ({ page }) => {
@@ -170,14 +172,6 @@ test.describe('Experience', () => {
     await page.keyboard.press('ArrowLeft');
     await expect(home.modalTitle).not.toHaveText(secondTitle!);
     await expect(home.modalPrev).not.toBeAttached();
-  });
-
-  test('Company name in modal links to LinkedIn profile and shows the LinkedIn icon', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.experienceCards.first().click();
-    await expect(home.experienceModal).toBeVisible();
-    await expect(home.modalCompany).toHaveAttribute('href', /linkedin\.com/i);
-    await expect(home.modalCompany.locator('svg')).toBeVisible();
   });
 });
 
@@ -192,21 +186,15 @@ test.describe('Dark Mode', () => {
     await expect(home.darkModeToggle).toBeVisible();
   });
 
-  test('User can enable dark mode', async ({ page }) => {
+  test('User can toggle dark mode on and off', async ({ page }) => {
     const home = new HomePage(page);
     await expect(page.locator('html')).not.toHaveClass(/\bdark\b/);
     await expect(home.darkModeToggle.locator('svg[data-icon="moon"]')).toBeVisible();
     await home.darkModeToggle.click();
-    await expect(page.locator('html')).toHaveClass(/\bdark\b/);
-    await expect(home.darkModeToggle).toHaveAttribute('aria-pressed', 'true');
-    await expect(home.darkModeToggle.locator('svg[data-icon="sun"]')).toBeVisible();
-  });
-
-  test('User can disable dark mode', async ({ page }) => {
-    const home = new HomePage(page);
-    await home.darkModeToggle.click();
-    await expect(page.locator('html')).toHaveClass(/\bdark\b/);
-    await expect(home.darkModeToggle.locator('svg[data-icon="sun"]')).toBeVisible();
+    // Soft assertions so the disable step always runs even if enable assertions fail
+    await expect.soft(page.locator('html')).toHaveClass(/\bdark\b/);
+    await expect.soft(home.darkModeToggle).toHaveAttribute('aria-pressed', 'true');
+    await expect.soft(home.darkModeToggle.locator('svg[data-icon="sun"]')).toBeVisible();
     await home.darkModeToggle.click();
     await expect(page.locator('html')).not.toHaveClass(/\bdark\b/);
     await expect(home.darkModeToggle).toHaveAttribute('aria-pressed', 'false');

@@ -50,91 +50,98 @@ test('About section text is visible and non-empty', async t => {
 
 // Experience
 
+async function openFirstCard(t) {
+  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok();
+}
+
+async function openLastCard(t) {
+  const cardCount = await Selector('[data-testid^="experience-card-"]').count;
+  await t
+    .click(home.experienceCard(cardCount - 1))
+    .expect(home.experienceModal.visible)
+    .ok();
+}
+
 test('Experience card grid is visible', async t => {
   await t.expect(home.experienceList.visible).ok().expect(home.experienceCard(0).visible).ok();
 });
 
-test('Clicking an experience card opens the modal with content', async t => {
-  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().expect(home.modalTitle.innerText).notEql('');
+// when the first experience card is open
+
+test('The modal displays content', async t => {
+  await openFirstCard(t);
+  await t.expect(home.modalTitle.innerText).notEql('');
 });
 
-test('Experience modal closes when X button is clicked', async t => {
-  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().click(home.modalClose).expect(home.experienceModal.exists).notOk();
+test('The modal closes when X button is clicked', async t => {
+  await openFirstCard(t);
+  await t.click(home.modalClose).expect(home.experienceModal.exists).notOk();
 });
 
-test('Experience modal closes when Escape key is pressed', async t => {
-  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().pressKey('esc').expect(home.experienceModal.exists).notOk();
+test('The modal closes when Escape key is pressed', async t => {
+  await openFirstCard(t);
+  await t.pressKey('esc').expect(home.experienceModal.exists).notOk();
 });
 
-test('First card does not show previous arrow', async t => {
-  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().expect(home.modalPrev.exists).notOk();
+test('The previous arrow is not shown', async t => {
+  await openFirstCard(t);
+  await t.expect(home.modalPrev.exists).notOk();
 });
 
-test('First card shows next arrow', async t => {
-  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok().expect(home.modalNext.visible).ok();
+test('The next arrow is shown', async t => {
+  await openFirstCard(t);
+  await t.expect(home.modalNext.visible).ok();
 });
 
 test('Clicking next arrow navigates to the next card', async t => {
-  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok();
+  await openFirstCard(t);
   const firstTitle = await home.modalTitle.innerText;
   await t.click(home.modalNext);
   await t.expect(home.modalTitle.innerText).notEql(firstTitle).expect(home.modalPrev.visible).ok();
 });
 
-test('Last card does not show next arrow', async t => {
-  const cardCount = await Selector('[data-testid^="experience-card-"]').count;
-  await t
-    .click(home.experienceCard(cardCount - 1))
-    .expect(home.experienceModal.visible)
-    .ok()
-    .expect(home.modalNext.exists)
-    .notOk();
+test('ArrowRight key navigates to the next card', async t => {
+  await openFirstCard(t);
+  const firstTitle = await home.modalTitle.innerText;
+  await t.pressKey('right');
+  await t.expect(home.modalTitle.innerText).notEql(firstTitle);
 });
 
-test('Last card shows previous arrow', async t => {
-  const cardCount = await Selector('[data-testid^="experience-card-"]').count;
+test('Company name links to LinkedIn profile and shows the LinkedIn icon', async t => {
+  await openFirstCard(t);
   await t
-    .click(home.experienceCard(cardCount - 1))
-    .expect(home.experienceModal.visible)
-    .ok()
-    .expect(home.modalPrev.visible)
+    .expect(home.modalCompany.getAttribute('href'))
+    .match(/linkedin\.com/i)
+    .expect(home.modalCompany.find('svg').visible)
     .ok();
+});
+
+// when the last experience card is open
+
+test('The next arrow is not shown', async t => {
+  await openLastCard(t);
+  await t.expect(home.modalNext.exists).notOk();
+});
+
+test('The previous arrow is shown', async t => {
+  await openLastCard(t);
+  await t.expect(home.modalPrev.visible).ok();
 });
 
 test('Clicking previous arrow navigates to the previous card', async t => {
-  const cardCount = await Selector('[data-testid^="experience-card-"]').count;
-  await t
-    .click(home.experienceCard(cardCount - 1))
-    .expect(home.experienceModal.visible)
-    .ok();
+  await openLastCard(t);
   const lastTitle = await home.modalTitle.innerText;
   await t.click(home.modalPrev);
   await t.expect(home.modalTitle.innerText).notEql(lastTitle).expect(home.modalNext.visible).ok();
 });
 
-test('ArrowRight key navigates to the next card', async t => {
-  await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok();
-  const firstTitle = await home.modalTitle.innerText;
-  await t.pressKey('right');
-  await t.expect(home.modalTitle.innerText).notEql(firstTitle);
-});
+// standalone
 
 test('ArrowLeft key navigates to the previous card', async t => {
   await t.click(home.experienceCard(1)).expect(home.experienceModal.visible).ok();
   const secondTitle = await home.modalTitle.innerText;
   await t.pressKey('left');
   await t.expect(home.modalTitle.innerText).notEql(secondTitle).expect(home.modalPrev.exists).notOk();
-});
-
-test('Company name in modal links to LinkedIn profile and shows the LinkedIn icon', async t => {
-  await t
-    .click(home.experienceCard(0))
-    .expect(home.experienceModal.visible)
-    .ok()
-    .expect(home.modalCompany.getAttribute('href'))
-    .match(/linkedin\.com/i)
-    .expect(home.modalCompany.find('svg').visible)
-    .ok();
 });
 
 // Links & Contact
@@ -166,17 +173,11 @@ test('Dark mode toggle is visible in the navbar', async t => {
   await t.expect(home.darkModeToggle.visible).ok();
 });
 
-test('User can enable dark mode', async t => {
+test('User can toggle dark mode on and off', async t => {
   await t.expect(getHtmlClass()).notContains('dark');
   await t.expect(home.darkModeToggle.find('svg[data-icon="moon"]').exists).ok();
   await t.click(home.darkModeToggle);
   await t.expect(getHtmlClass()).contains('dark').expect(home.darkModeToggle.getAttribute('aria-pressed')).eql('true');
-  await t.expect(home.darkModeToggle.find('svg[data-icon="sun"]').exists).ok();
-});
-
-test('User can disable dark mode', async t => {
-  await t.click(home.darkModeToggle);
-  await t.expect(getHtmlClass()).contains('dark');
   await t.expect(home.darkModeToggle.find('svg[data-icon="sun"]').exists).ok();
   await t.click(home.darkModeToggle);
   await t.expect(getHtmlClass()).notContains('dark').expect(home.darkModeToggle.getAttribute('aria-pressed')).eql('false');

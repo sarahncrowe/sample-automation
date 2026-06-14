@@ -67,84 +67,85 @@ describe('Experience', function () {
     });
   });
 
-  it('Clicking an experience card opens the modal with content', () => {
-    cy.get(home.experienceCard(0)).click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalTitle).should('not.be.empty');
-    cy.get(home.modalDescription).should('not.be.empty');
+  describe('when the first experience card is open', function () {
+    beforeEach(() => {
+      cy.get(home.experienceCard(0)).click();
+      cy.get(home.experienceModal).should('be.visible');
+    });
+
+    it('The modal displays content', () => {
+      cy.get(home.modalTitle).should('not.be.empty');
+      cy.get(home.modalDescription).should('not.be.empty');
+    });
+
+    it('The modal closes when X button is clicked', () => {
+      cy.get(home.modalClose).click();
+      cy.get(home.experienceModal).should('not.exist');
+    });
+
+    it('The modal closes when Escape key is pressed', () => {
+      cy.get('body').type('{esc}');
+      cy.get(home.experienceModal).should('not.exist');
+    });
+
+    it('The previous arrow is not shown', () => {
+      cy.get(home.modalPrev).should('not.exist');
+    });
+
+    it('The next arrow is shown', () => {
+      cy.get(home.modalNext).should('be.visible');
+    });
+
+    it('Clicking next arrow navigates to the next card', () => {
+      cy.get(home.modalTitle)
+        .invoke('text')
+        .then(firstTitle => {
+          cy.get(home.modalNext).click();
+          cy.get(home.modalTitle).should('not.have.text', firstTitle);
+          cy.get(home.modalPrev).should('be.visible');
+        });
+    });
+
+    it('ArrowRight key navigates to the next card', () => {
+      cy.get(home.modalTitle)
+        .invoke('text')
+        .then(firstTitle => {
+          cy.get('body').type('{rightarrow}');
+          cy.get(home.modalTitle).should('not.have.text', firstTitle);
+        });
+    });
+
+    it('Company name links to LinkedIn profile and shows the LinkedIn icon', () => {
+      cy.get(home.modalCompany)
+        .invoke('attr', 'href')
+        .should('match', /linkedin\.com/i);
+      cy.get(home.modalCompany).find('svg').should('be.visible');
+    });
   });
 
-  it('Experience modal closes when X button is clicked', () => {
-    cy.get(home.experienceCard(0)).click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalClose).click();
-    cy.get(home.experienceModal).should('not.exist');
-  });
+  describe('when the last experience card is open', function () {
+    beforeEach(() => {
+      cy.get(home.experienceCards).last().click();
+      cy.get(home.experienceModal).should('be.visible');
+    });
 
-  it('Experience modal closes when Escape key is pressed', () => {
-    cy.get(home.experienceCard(0)).click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get('body').type('{esc}');
-    cy.get(home.experienceModal).should('not.exist');
-  });
+    it('The next arrow is not shown', () => {
+      cy.get(home.modalNext).should('not.exist');
+    });
 
-  it('First card does not show previous arrow', () => {
-    cy.get(home.experienceCard(0)).click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalPrev).should('not.exist');
-  });
+    it('The previous arrow is shown', () => {
+      cy.get(home.modalPrev).should('be.visible');
+    });
 
-  it('First card shows next arrow', () => {
-    cy.get(home.experienceCard(0)).click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalNext).should('be.visible');
-  });
-
-  it('Clicking next arrow navigates to the next card', () => {
-    cy.get(home.experienceCard(0)).click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalTitle)
-      .invoke('text')
-      .then(firstTitle => {
-        cy.get(home.modalNext).click();
-        cy.get(home.modalTitle).should('not.have.text', firstTitle);
-        cy.get(home.modalPrev).should('be.visible');
-      });
-  });
-
-  it('Last card does not show next arrow', () => {
-    cy.get(home.experienceCards).last().click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalNext).should('not.exist');
-  });
-
-  it('Last card shows previous arrow', () => {
-    cy.get(home.experienceCards).last().click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalPrev).should('be.visible');
-  });
-
-  it('Clicking previous arrow navigates to the previous card', () => {
-    cy.get(home.experienceCards).last().click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalTitle)
-      .invoke('text')
-      .then(lastTitle => {
-        cy.get(home.modalPrev).click();
-        cy.get(home.modalTitle).should('not.have.text', lastTitle);
-        cy.get(home.modalNext).should('be.visible');
-      });
-  });
-
-  it('ArrowRight key navigates to the next card', () => {
-    cy.get(home.experienceCard(0)).click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalTitle)
-      .invoke('text')
-      .then(firstTitle => {
-        cy.get('body').type('{rightarrow}');
-        cy.get(home.modalTitle).should('not.have.text', firstTitle);
-      });
+    it('Clicking previous arrow navigates to the previous card', () => {
+      cy.get(home.modalTitle)
+        .invoke('text')
+        .then(lastTitle => {
+          cy.get(home.modalPrev).click();
+          cy.get(home.modalTitle).should('not.have.text', lastTitle);
+          cy.get(home.modalNext).should('be.visible');
+        });
+    });
   });
 
   it('ArrowLeft key navigates to the previous card', () => {
@@ -158,15 +159,6 @@ describe('Experience', function () {
         cy.get(home.modalPrev).should('not.exist');
       });
   });
-
-  it('Company name in modal links to LinkedIn profile and shows the LinkedIn icon', () => {
-    cy.get(home.experienceCard(0)).click();
-    cy.get(home.experienceModal).should('be.visible');
-    cy.get(home.modalCompany)
-      .invoke('attr', 'href')
-      .should('match', /linkedin\.com/i);
-    cy.get(home.modalCompany).find('svg').should('be.visible');
-  });
 });
 
 describe('Dark Mode', function () {
@@ -179,18 +171,12 @@ describe('Dark Mode', function () {
     cy.get(home.darkModeToggle).should('be.visible');
   });
 
-  it('User can enable dark mode', () => {
+  it('User can toggle dark mode on and off', () => {
     cy.get('html').should('not.have.class', 'dark');
     cy.get(home.darkModeToggle).find('svg[data-icon="moon"]').should('exist');
     cy.get(home.darkModeToggle).click();
     cy.get('html').should('have.class', 'dark');
     cy.get(home.darkModeToggle).should('have.attr', 'aria-pressed', 'true');
-    cy.get(home.darkModeToggle).find('svg[data-icon="sun"]').should('exist');
-  });
-
-  it('User can disable dark mode', () => {
-    cy.get(home.darkModeToggle).click();
-    cy.get('html').should('have.class', 'dark');
     cy.get(home.darkModeToggle).find('svg[data-icon="sun"]').should('exist');
     cy.get(home.darkModeToggle).click();
     cy.get('html').should('not.have.class', 'dark');
