@@ -150,8 +150,10 @@ test('LinkedIn link href matches linkedin.com/in/', async t => {
   await t.expect(href).match(/linkedin\.com\/in\//i);
 });
 
-test('Contact email is visible', async t => {
+test('Contact email is visible and correct', async t => {
   await t.expect(home.contactEmail.visible).ok();
+  await t.expect(home.contactEmail.getAttribute('href')).eql('mailto:contact@sarahncrowe.com');
+  await t.expect(home.contactEmail.getAttribute('aria-label')).eql('Email contact@sarahncrowe.com');
 });
 
 // Dark Mode

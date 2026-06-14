@@ -219,6 +219,8 @@ describe('Links & Contact', function () {
 
   it('User can find contact information', () => {
     cy.get(home.contactEmail).should('be.visible');
+    cy.get(home.contactEmail).invoke('attr', 'href').should('eq', 'mailto:contact@sarahncrowe.com');
+    cy.get(home.contactEmail).should('have.attr', 'aria-label', 'Email contact@sarahncrowe.com');
   });
 
   it('User can open external links in a new tab', () => {
