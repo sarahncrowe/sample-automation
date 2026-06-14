@@ -235,6 +235,8 @@ test.describe('Links & Contact', () => {
   test('User can find contact information', async ({ page }) => {
     const home = new HomePage(page);
     await expect(home.contactEmail).toBeVisible();
+    await expect(home.contactEmail).toHaveAttribute('href', 'mailto:contact@sarahncrowe.com');
+    await expect(home.contactEmail).toHaveAttribute('aria-label', 'Email contact@sarahncrowe.com');
   });
 
   test('User can open external links in a new tab', async ({ page }) => {
