@@ -18,7 +18,7 @@ class ProjectsPage {
   constructor(page: Page) {
     this.page = page;
     this.heading = page.getByRole('heading', { level: 1 });
-    this.description = page.getByTestId('repo-description');
+    this.description = page.getByTestId('repo-header').locator('p');
     this.playwrightTab = page.getByTestId('tab-playwright');
     this.testcafeTab = page.getByTestId('tab-testcafe');
     this.cypressTab = page.getByTestId('tab-cypress');
