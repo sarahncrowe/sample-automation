@@ -3,7 +3,7 @@ node_modules/
 test-report/
 test-results/
 tests-examples/
-.prettierrc
+config/.prettierrc
 **/*.yml
 **/*.json
 **/*.md

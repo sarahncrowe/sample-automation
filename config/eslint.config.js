@@ -3,16 +3,10 @@ const tseslint = require('typescript-eslint');
 
 module.exports = tseslint.config(
   {
-    ignores: [
-      'node_modules/**',
-      'tests-examples/**',
-      'tests/TestCafe/tc-01-home-page.js',
-      'models/testcafe/swag-labs-home.js',
-      'models/testcafe/swag-labs-login.js',
-    ],
+    ignores: ['**/tests-examples/**', '**/tc-01-home-page.js', '**/swag-labs-home.js', '**/swag-labs-login.js'],
   },
   {
-    files: ['tests/playwright/**/*.ts', 'models/playwright/**/*.ts'],
+    files: ['../tests/playwright/**/*.ts', '../models/playwright/**/*.ts'],
     plugins: {
       playwright: playwright,
       '@typescript-eslint': tseslint.plugin,
@@ -20,7 +14,7 @@ module.exports = tseslint.config(
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: './tsconfig.json',
+        project: './config/tsconfig.json',
       },
     },
     rules: {
@@ -28,26 +22,26 @@ module.exports = tseslint.config(
     },
   },
   {
-    files: ['tests/TestCafe/personal-site/**/*.ts', 'models/testcafe/**/*.ts'],
+    files: ['../tests/TestCafe/personal-site/**/*.ts', '../models/testcafe/**/*.ts'],
     plugins: {
       '@typescript-eslint': tseslint.plugin,
     },
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: './tests/TestCafe/tsconfig.json',
+        project: './config/tsconfig.testcafe.json',
       },
     },
   },
   {
-    files: ['tests/cypress/**/*.ts', 'models/cypress/**/*.ts'],
+    files: ['../tests/cypress/**/*.ts', '../models/cypress/**/*.ts'],
     plugins: {
       '@typescript-eslint': tseslint.plugin,
     },
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: './tests/cypress/tsconfig.json',
+        project: './config/tsconfig.cypress.json',
       },
     },
   },

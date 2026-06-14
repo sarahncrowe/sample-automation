@@ -23,15 +23,15 @@
     "typescript-eslint": "^8.60.0"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit && tsc --noEmit -p tests/TestCafe/tsconfig.json && tsc --noEmit -p tests/cypress/tsconfig.json",
-    "lint": "eslint",
-    "format:check": "prettier --check .",
-    "test": "playwright test",
-    "test:cypress": "cypress run",
-    "test:local": "BASE_URL=http://localhost:5173 playwright test --project=personal-site-chrome --project=personal-site-firefox --project=personal-site-safari",
-    "test:local:cypress": "BASE_URL=http://localhost:5173 cypress run",
-    "test:testcafe": "npx testcafe chrome tests/TestCafe/personal-site --skip-js-errors",
-    "test:local:testcafe": "BASE_URL=http://localhost:5173 npx testcafe chrome tests/TestCafe/personal-site --skip-js-errors"
+    "typecheck": "tsc --noEmit -p config/tsconfig.json && tsc --noEmit -p config/tsconfig.testcafe.json && tsc --noEmit -p config/tsconfig.cypress.json",
+    "lint": "eslint --config config/eslint.config.js",
+    "format:check": "prettier --config config/.prettierrc --check .",
+    "test": "playwright test --config config/playwright.config.js",
+    "test:cypress": "cypress run --config-file config/cypress.config.cjs",
+    "test:local": "BASE_URL=http://localhost:5173 playwright test --config config/playwright.config.js --project=personal-site-chrome --project=personal-site-firefox --project=personal-site-safari",
+    "test:local:cypress": "BASE_URL=http://localhost:5173 cypress run --config-file config/cypress.config.cjs",
+    "test:testcafe": "npx testcafe --config-file config/.testcaferc.json chrome tests/TestCafe/personal-site --skip-js-errors",
+    "test:local:testcafe": "BASE_URL=http://localhost:5173 npx testcafe --config-file config/.testcaferc.json chrome tests/TestCafe/personal-site --skip-js-errors"
   },
   "repository": {
     "type": "git",

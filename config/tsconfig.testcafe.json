@@ -10,8 +10,5 @@
     "noEmit": true,
     "types": ["testcafe", "node"]
   },
-  "include": [
-    "./**/*.ts",
-    "../../models/testcafe/**/*.ts"
-  ]
+  "include": ["../tests/TestCafe/**/*.ts", "../models/testcafe/**/*.ts"]
 }
