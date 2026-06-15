@@ -9,5 +9,5 @@
     "noEmit": true,
     "types": ["node", "@playwright/test"]
   },
-  "include": ["tests/playwright/**/*.ts", "models/playwright/**/*.ts"]
+  "include": ["../tests/playwright/**/*.ts", "../models/playwright/**/*.ts"]
 }

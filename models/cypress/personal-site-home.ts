@@ -1,4 +1,30 @@
 class PersonalSiteHome {
+  nav: string;
+  navBrand: string;
+  navLinks: string;
+  heroSection: string;
+  aboutSection: string;
+  experienceSection: string;
+  skillsSection: string;
+  contactSection: string;
+  heroHeading: string;
+  aboutText: string;
+  images: string;
+  githubLink: string;
+  linkedinLink: string;
+  contactEmail: string;
+  experienceList: string;
+  experienceCards: string;
+  experienceModal: string;
+  modalClose: string;
+  modalTitle: string;
+  modalCompany: string;
+  modalDescription: string;
+  modalTags: string;
+  modalPrev: string;
+  modalNext: string;
+  darkModeToggle: string;
+
   constructor() {
     this.nav = '[data-testid="navbar"]';
     this.navBrand = '[data-testid="nav-brand"]';
@@ -27,7 +53,7 @@ class PersonalSiteHome {
     this.darkModeToggle = '[data-testid="dark-mode-toggle"]';
   }
 
-  experienceCard(index) {
+  experienceCard(index: number): string {
     return `[data-testid="experience-card-${index}"]`;
   }
 }

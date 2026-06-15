@@ -8,7 +8,6 @@ const getHtmlClass = ClientFunction(() => document.documentElement.className);
 const BASE_URL = process.env.BASE_URL || 'https://sarahncrowe.com';
 
 const getTitle = ClientFunction(() => document.title);
-const getLocation = ClientFunction(() => document.location.href);
 
 fixture`Personal Site - Home`.page(BASE_URL);
 
@@ -51,11 +50,11 @@ test('About section text is visible and non-empty', async t => {
 
 // Experience
 
-async function openFirstCard(t) {
+async function openFirstCard(t: TestController) {
   await t.click(home.experienceCard(0)).expect(home.experienceModal.visible).ok();
 }
 
-async function openLastCard(t) {
+async function openLastCard(t: TestController) {
   const cardCount = await Selector('[data-testid^="experience-card-"]').count;
   await t
     .click(home.experienceCard(cardCount - 1))

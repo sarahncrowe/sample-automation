@@ -1,6 +1,30 @@
 import { Selector } from 'testcafe';
 
 class PersonalSiteHome {
+  nav: Selector;
+  navBrand: Selector;
+  heroSection: Selector;
+  aboutSection: Selector;
+  experienceSection: Selector;
+  skillsSection: Selector;
+  contactSection: Selector;
+  heroHeading: Selector;
+  aboutText: Selector;
+  githubLink: Selector;
+  linkedinLink: Selector;
+  contactEmail: Selector;
+  experienceList: Selector;
+  experienceCard: (index: number) => Selector;
+  experienceModal: Selector;
+  modalClose: Selector;
+  modalTitle: Selector;
+  modalCompany: Selector;
+  modalDescription: Selector;
+  modalTags: Selector;
+  modalPrev: Selector;
+  modalNext: Selector;
+  darkModeToggle: Selector;
+
   constructor() {
     this.nav = Selector('[data-testid="navbar"]');
     this.navBrand = Selector('[data-testid="nav-brand"]');
@@ -15,7 +39,7 @@ class PersonalSiteHome {
     this.linkedinLink = Selector('[data-testid="contact-linkedin"]');
     this.contactEmail = Selector('[data-testid="contact-email"]');
     this.experienceList = Selector('[data-testid="experience-list"]');
-    this.experienceCard = index => Selector(`[data-testid="experience-card-${index}"]`);
+    this.experienceCard = (index: number) => Selector(`[data-testid="experience-card-${index}"]`);
     this.experienceModal = Selector('[data-testid="experience-modal"]');
     this.modalClose = Selector('[data-testid="modal-close"]');
     this.modalTitle = Selector('[data-testid="modal-title"]');
