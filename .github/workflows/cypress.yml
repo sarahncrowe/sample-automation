@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: cypress/included:13.17.0
+    container: cypress/included:15.17.0
     steps:
       - uses: actions/checkout@v6
       - name: Install dependencies
