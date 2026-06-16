@@ -63,6 +63,53 @@ test.describe('File Browser', () => {
   });
 });
 
+test.describe('CI Run History', () => {
+  test('User can see the CI run history section', async ({ page }) => {
+    const projects = new ProjectsPage(page);
+    await expect(projects.runHistorySection).toBeVisible();
+  });
+
+  test('User can see run history for each framework', async ({ page }) => {
+    const projects = new ProjectsPage(page);
+    await expect(projects.playwrightCiRow).toBeVisible();
+    await expect(projects.testcafeCiRow).toBeVisible();
+    await expect(projects.cypressCiRow).toBeVisible();
+  });
+
+  test('User can see run squares for each framework', async ({ page }) => {
+    const projects = new ProjectsPage(page);
+    const playwrightSquares = projects.playwrightCiRow.getByTestId('run-square');
+    const testcafeSquares = projects.testcafeCiRow.getByTestId('run-square');
+    const cypressSquares = projects.cypressCiRow.getByTestId('run-square');
+    await expect(playwrightSquares.first()).toBeVisible();
+    await expect(testcafeSquares.first()).toBeVisible();
+    await expect(cypressSquares.first()).toBeVisible();
+  });
+
+  test('User can see a tooltip when hovering a run square', async ({ page }) => {
+    const projects = new ProjectsPage(page);
+    const firstSquare = projects.playwrightCiRow.getByTestId('run-square').first();
+    const firstTooltip = projects.playwrightCiRow.getByTestId('run-square-tooltip').first();
+    await firstSquare.hover();
+    await expect(firstTooltip).toBeVisible();
+  });
+
+  test('Tooltip shows run status and number', async ({ page }) => {
+    const projects = new ProjectsPage(page);
+    const firstSquare = projects.playwrightCiRow.getByTestId('run-square').first();
+    const firstTooltip = projects.playwrightCiRow.getByTestId('run-square-tooltip').first();
+    await firstSquare.hover();
+    await expect(firstTooltip).toBeVisible();
+    await expect(firstTooltip).toHaveText(/^(Passed|Failed) – Run #\d+/);
+  });
+
+  test('Run squares link to GitHub Actions', async ({ page }) => {
+    const projects = new ProjectsPage(page);
+    const firstSquare = projects.playwrightCiRow.getByTestId('run-square').first();
+    await expect(firstSquare).toHaveAttribute('href', /github\.com\/sarahncrowe\/sample-automation\/actions\/runs\//);
+  });
+});
+
 test.describe('Links', () => {
   test('User can navigate to the GitHub repository', async ({ page }) => {
     const projects = new ProjectsPage(page);

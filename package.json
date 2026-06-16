@@ -18,6 +18,7 @@
     "eslint-plugin-cypress": "^3.0.0",
     "eslint-plugin-playwright": "^2.10.4",
     "playwright": "^1.45.3",
+    "playwright-cli": "^0.262.0",
     "prettier": "^3.8.3",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.0"
@@ -30,8 +31,9 @@
     "test:cypress": "cypress run --config-file config/cypress.config.cjs",
     "test:local": "BASE_URL=http://localhost:5173 playwright test --config config/playwright.config.js --project=personal-site-chrome --project=personal-site-firefox --project=personal-site-safari",
     "test:local:cypress": "BASE_URL=http://localhost:5173 cypress run --config-file config/cypress.config.cjs",
-    "test:testcafe": "npx testcafe --config-file config/.testcaferc.json chrome tests/TestCafe/personal-site --skip-js-errors",
-    "test:local:testcafe": "BASE_URL=http://localhost:5173 npx testcafe --config-file config/.testcaferc.json chrome tests/TestCafe/personal-site --skip-js-errors"
+    "test:testcafe": "npx testcafe --config-file config/.testcaferc.json chrome:headless tests/TestCafe/personal-site --skip-js-errors",
+    "test:local:testcafe": "BASE_URL=http://localhost:5173 npx testcafe --config-file config/.testcaferc.json chrome tests/TestCafe/personal-site --skip-js-errors",
+    "test:all": "npm run test; npm run test:cypress; npm run test:testcafe"
   },
   "repository": {
     "type": "git",

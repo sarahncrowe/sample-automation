@@ -15,6 +15,13 @@ class ProjectsPage {
   readonly stackBlitzLink: Locator;
   readonly backToHomeLink: Locator;
 
+  readonly runHistorySection: Locator;
+  readonly playwrightCiRow: Locator;
+  readonly testcafeCiRow: Locator;
+  readonly cypressCiRow: Locator;
+  readonly runSquares: Locator;
+  readonly runSquareTooltips: Locator;
+
   constructor(page: Page) {
     this.page = page;
     this.heading = page.getByRole('heading', { level: 1 });
@@ -30,6 +37,12 @@ class ProjectsPage {
     this.githubLink = page.getByTestId('github-repo-link');
     this.stackBlitzLink = page.getByTestId('stackblitz-section').getByRole('link');
     this.backToHomeLink = page.getByTestId('back-link');
+    this.runHistorySection = page.getByTestId('run-history');
+    this.playwrightCiRow = page.getByTestId('framework-ci-playwright');
+    this.testcafeCiRow = page.getByTestId('framework-ci-testcafe');
+    this.cypressCiRow = page.getByTestId('framework-ci-cypress');
+    this.runSquares = page.getByTestId('run-square');
+    this.runSquareTooltips = page.getByTestId('run-square-tooltip');
   }
 }
 
